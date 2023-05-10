@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     "prettier/prettier": ["error"],
     "react/prop-types": "off",
+    "react/jsx-props-no-spreading": "off",
   },
 };

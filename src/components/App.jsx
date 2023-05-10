@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 import Signup from "./Signup";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
@@ -10,10 +11,19 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" Component={Dashboard} />
-        <Route path="/signup" Component={Signup} />
-        <Route path="/login" Component={Login} />
-        <Route path="/home" Component={Home} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        {/* <PrivateRoute path="/home" element={<Home />} /> */}
+        {/* <Route path="/home" element={<PrivateRoute component={Home} />} /> */}
       </Routes>
     </Router>
   );
