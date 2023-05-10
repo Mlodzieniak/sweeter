@@ -27,11 +27,15 @@ export function AuthProvider({ children }) {
   const signin = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
   };
+  const logout = async () => {
+    auth.signOut();
+  };
   const value = useMemo(
     () => ({
       currentUser,
       signup,
       signin,
+      logout,
     }),
     []
   );

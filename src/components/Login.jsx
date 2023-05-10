@@ -15,7 +15,7 @@ function Signup() {
 
     try {
       await signin(emailRef.current.value, passwordRef.current.value);
-      navigate("/");
+      navigate("/home");
     } catch (registrationError) {
       console.log(`failed to login: ${registrationError}`);
       setError(registrationError);

@@ -1,3 +1,22 @@
+.dashboard {
+    display: flex;
+    width: 100%;
+}
+
+.navbar {
+    /* width: 100px; */
+    flex: 1;
+}
+
+.content {
+    width: 600px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.status {
+    width: 350px;
+}
+
 .register-form {
     display: flex;
     flex-direction: column;

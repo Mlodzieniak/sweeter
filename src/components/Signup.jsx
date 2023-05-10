@@ -27,7 +27,7 @@ function Signup() {
 
     try {
       await signup(emailRef.current.value, passwordRef.current.value);
-      navigate("/");
+      navigate("/home");
     } catch (registrationError) {
       console.log(`failed to create account${registrationError}`);
     }
