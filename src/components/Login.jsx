@@ -45,9 +45,17 @@ function Signup() {
         <div>
           Dont you have an account?{" "}
           <button type="button" onClick={() => navigate("/signup")}>
-            Register
+            Register new account
           </button>
         </div>
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Go back to dashboard
+        </button>
         {error ? <div className="error">{error}</div> : null}
       </form>
     </div>
