@@ -23,15 +23,16 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  const signup = async (email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password);
-  };
+  const signup = async (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password);
+
   const signin = async (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
-  const logout = async () => {
-    auth.signOut();
-  };
+
+  const logout = async () => auth.signOut();
+
   const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
+
   const changePassword = async (newPassword) => {
     await updatePassword(currentUser, newPassword);
   };

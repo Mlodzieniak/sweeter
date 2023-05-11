@@ -8,36 +8,31 @@ export default function EditProfile() {
   const passwordConfirmationRef = useRef();
   const { changePassword } = useAuth();
   const [error, setError] = useState();
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    setMessage(null);
     if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
       return setError("Passwords do not match.");
     }
+    if (passwordRef.current.value.length < 6) {
+      return setError("New Password must be atleast 6 characters long..");
+    }
     setLoading(true);
-
     try {
-      //   await signup(emailRef.current.value, passwordRef.current.value);
       await changePassword(passwordRef.current.value);
+      setMessage("Password changed!");
     } catch (resetError) {
       console.log(`Failed to change password: ${resetError}`);
+      setError(resetError);
     }
     return setLoading(false);
   };
   return (
     <div className="signup-page">
       <form action="post" className="register-form">
-        {/* <label htmlFor="password">
-          Old password:
-          <input
-            type="password"
-            name="password"
-            id="oldPassword"
-            ref={oldPasswordRef}
-            required
-          />
-        </label> */}
         <label htmlFor="password">
           New password:
           <input
@@ -69,6 +64,7 @@ export default function EditProfile() {
         >
           Go back to dashboard
         </button>
+        {message ? <div className="messages">{message}</div> : null}
         {error ? <div className="error">{error}</div> : null}
       </form>
     </div>
