@@ -23,3 +23,8 @@
     width: 500px;
     align-items: flex-end;
 }
+
+#post-text {
+    width: 100%;
+    box-sizing: border-box;
+}

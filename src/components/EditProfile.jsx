@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function EditProfile() {
-  //   const oldPasswordRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
-  const { changePassword } = useAuth();
+  const { changePassword, currentUser } = useAuth();
   const [error, setError] = useState();
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,6 +32,7 @@ export default function EditProfile() {
   return (
     <div className="signup-page">
       <form action="post" className="register-form">
+        <h3>{currentUser.email}</h3>
         <label htmlFor="password">
           New password:
           <input
