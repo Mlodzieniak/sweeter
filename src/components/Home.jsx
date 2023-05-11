@@ -6,9 +6,9 @@ import CreatePost from "./CreatePost";
 function Home() {
   const navigate = useNavigate();
   const { logout, currentUser, userData } = useAuth();
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logout();
     navigate("/");
-    logout();
   };
   return (
     <div className="dashboard">
