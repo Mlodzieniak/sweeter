@@ -2,21 +2,22 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-function Signup() {
+export default function ForgotPassword() {
   const emailRef = useRef();
-  const passwordRef = useRef();
-  const { signin } = useAuth();
+  const { resetPassword } = useAuth();
   const [error, setError] = useState();
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    setError("");
     setLoading(true);
     try {
-      await signin(emailRef.current.value, passwordRef.current.value);
-      navigate("/home");
+      await resetPassword(emailRef.current.value);
+      setMessage("Check your email to reset password");
     } catch (loginError) {
-      setError("Failed to login.");
+      setError("Failed to reset password.");
       console.log(loginError);
     }
 
@@ -29,23 +30,13 @@ function Signup() {
           Email:
           <input type="text" name="email" id="email" ref={emailRef} />
         </label>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            id="password"
-            ref={passwordRef}
-          />
-        </label>
 
         <button type="button" onClick={handleSubmit} disabled={loading}>
-          Login
+          Recover password
         </button>
         <div>
-          Dont you have an account?{" "}
-          <button type="button" onClick={() => navigate("/signup")}>
-            Register new account
+          <button type="button" onClick={() => navigate("/login")}>
+            Go back to login page
           </button>
         </div>
         <button
@@ -56,18 +47,10 @@ function Signup() {
         >
           Go back to dashboard
         </button>
-        <button
-          type="button"
-          onClick={() => {
-            navigate("/password-recovery");
-          }}
-        >
-          Recover password
-        </button>
+        {message ? <div className="message">{message}</div> : null}
+
         {error ? <div className="error">{error}</div> : null}
       </form>
     </div>
   );
 }
-
-export default Signup;

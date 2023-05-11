@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import React, {
@@ -30,6 +31,7 @@ export function AuthProvider({ children }) {
     setLoading(false);
     return respond;
   };
+  const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
   const logout = async () => {
     auth.signOut();
   };
@@ -39,6 +41,7 @@ export function AuthProvider({ children }) {
       signup,
       signin,
       logout,
+      resetPassword,
     }),
     [currentUser]
   );

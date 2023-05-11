@@ -6,18 +6,18 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-// import PrivateRoute from "./PrivateRoute";
 import Signup from "./Signup";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import Home from "./Home";
 import { useAuth } from "../contexts/AuthContext";
+import ForgotPassword from "./ForgotPassword";
 
-function PrivateRoute({ children }) {
+export function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
   return currentUser ? children : <Navigate to="/login" />;
 }
-function PublicRoute({ children }) {
+export function PublicRoute({ children }) {
   const { currentUser } = useAuth();
   return !currentUser ? children : <Navigate to="/home" />;
 }
@@ -47,6 +47,14 @@ function App() {
           element={
             <PublicRoute>
               <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/password-recovery"
+          element={
+            <PublicRoute>
+              <ForgotPassword />
             </PublicRoute>
           }
         />
