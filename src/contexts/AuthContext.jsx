@@ -1,3 +1,4 @@
+import { uuidv4 } from "@firebase/util";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -5,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   updatePassword,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import React, {
   createContext,
   useContext,
@@ -12,7 +14,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 
 const AuthContext = createContext(null);
 
@@ -23,13 +25,25 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  const signup = async (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password);
+  const logout = async () => {
+    await auth.signOut();
+  };
+  const signup = async (email, password) => {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const defaultUserData = {
+      uid: result.user.uid,
+      displayName: result.user.displayName || `user${uuidv4().slice(0, 7)}`,
+      email: result.user.email,
+    };
+    await setDoc(doc(db, `users/${result.user.uid}`), defaultUserData, {
+      merge: true,
+    });
+    logout();
+    return result;
+  };
 
   const signin = async (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
-
-  const logout = async () => auth.signOut();
 
   const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
 
@@ -45,15 +59,10 @@ export function AuthProvider({ children }) {
       logout,
       resetPassword,
       changePassword,
+      userData: null,
     }),
     [currentUser]
   );
-
-  useEffect(() => {
-    if (currentUser) {
-      setLoading(false);
-    }
-  }, [currentUser]);
 
   useEffect(() => {
     setLoading(true);
@@ -65,6 +74,7 @@ export function AuthProvider({ children }) {
       unsubscribe();
     };
   }, []);
+
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}

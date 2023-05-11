@@ -1,27 +1,13 @@
 import React from "react";
 import "../App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { PrivateRoute, PublicRoute } from "./Routes";
 import Signup from "./Signup";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import Home from "./Home";
-import { useAuth } from "../contexts/AuthContext";
 import ForgotPassword from "./ForgotPassword";
 import EditProfile from "./EditProfile";
-
-export function PrivateRoute({ children }) {
-  const { currentUser } = useAuth();
-  return currentUser ? children : <Navigate to="/login" />;
-}
-export function PublicRoute({ children }) {
-  const { currentUser } = useAuth();
-  return !currentUser ? children : <Navigate to="/home" />;
-}
 
 function App() {
   return (

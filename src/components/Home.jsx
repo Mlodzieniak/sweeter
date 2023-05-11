@@ -5,7 +5,7 @@ import CreatePost from "./CreatePost";
 
 function Home() {
   const navigate = useNavigate();
-  const { logout, currentUser } = useAuth();
+  const { logout, currentUser, userData } = useAuth();
   const handleLogout = () => {
     navigate("/");
     logout();
@@ -14,6 +14,7 @@ function Home() {
     <div className="dashboard">
       <div className="navbar">
         <h3>{currentUser.email}</h3>
+        <h3>{userData.displayName}</h3>
 
         <button
           type="button"

@@ -14,5 +14,6 @@ module.exports = {
     "prettier/prettier": ["error"],
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
+    "consistent-return": "off",
   },
 };
