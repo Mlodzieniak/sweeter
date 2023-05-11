@@ -7,8 +7,9 @@ import { useAuth } from "../contexts/AuthContext";
 export default function CreatePost() {
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
+  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const [imageRef, setImageRef] = useState(null);
-  //   const [imageURL, setImageURL] = useState(null);
   const { currentUser } = useAuth();
   const { uid } = currentUser;
 
@@ -22,27 +23,33 @@ export default function CreatePost() {
   };
 
   const handleSubmit = async () => {
-    let url = "";
-    try {
-      if (file) {
-        const result = await uploadBytes(imageRef, file);
-        url = await getDownloadURL(result.ref);
+    setError(null);
+    setMessage(null);
+    if (text.length !== 0) {
+      let url = "";
+      try {
+        if (file) {
+          const result = await uploadBytes(imageRef, file);
+          url = await getDownloadURL(result.ref);
+        }
+        const postData = {
+          authorId: uid,
+          text,
+          imageURL: url || "",
+          postedAt: Timestamp.fromDate(new Date()),
+        };
+        await addDoc(collection(db, "events"), postData);
+        resetForm();
+        setMessage("Posted.");
+      } catch (e) {
+        setError(e);
       }
-      const postData = {
-        authorId: uid,
-        text,
-        imageURL: url || "",
-        postedAt: Timestamp.fromDate(new Date()),
-      };
-      await addDoc(collection(db, "events"), postData);
-      resetForm();
-    } catch (error) {
-      console.log(error);
+    } else {
+      setError("You cannot send empty post.");
     }
   };
   useEffect(() => {
     if (file) {
-      console.log(file);
       setImageRef(ref(storage, `images/${file.name}`));
     }
   }, [file]);
@@ -67,6 +74,8 @@ export default function CreatePost() {
       <button type="button" onClick={handleSubmit}>
         Post
       </button>
+      {error ? <div className="error">{error}</div> : null}
+      {message ? <div className="message">{message}</div> : null}
     </form>
   );
 }
