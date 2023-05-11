@@ -12,15 +12,15 @@ function Signup() {
 
   const handleSubmit = async () => {
     setLoading(true);
-
     try {
       await signin(emailRef.current.value, passwordRef.current.value);
       navigate("/home");
-    } catch (registrationError) {
-      console.log(`failed to login: ${registrationError}`);
-      setError(registrationError);
+    } catch (loginError) {
+      setError("Failed to login.");
+      console.log(loginError);
     }
-    return setLoading(false);
+
+    setLoading(false);
   };
   return (
     <div className="signup-page">

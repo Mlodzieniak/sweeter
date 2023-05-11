@@ -12,7 +12,7 @@ import React, {
 } from "react";
 import { auth } from "../firebase";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -25,7 +25,10 @@ export function AuthProvider({ children }) {
     await createUserWithEmailAndPassword(auth, email, password);
   };
   const signin = async (email, password) => {
-    await signInWithEmailAndPassword(auth, email, password);
+    setLoading(true);
+    const respond = signInWithEmailAndPassword(auth, email, password);
+    setLoading(false);
+    return respond;
   };
   const logout = async () => {
     auth.signOut();
@@ -37,8 +40,14 @@ export function AuthProvider({ children }) {
       signin,
       logout,
     }),
-    []
+    [currentUser]
   );
+
+  useEffect(() => {
+    if (currentUser) {
+      setLoading(false);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     setLoading(true);
@@ -46,7 +55,9 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
       setLoading(false);
     });
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+    };
   }, []);
   return (
     <AuthContext.Provider value={value}>
