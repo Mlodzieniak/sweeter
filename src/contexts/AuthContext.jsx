@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  updatePassword,
 } from "firebase/auth";
 import React, {
   createContext,
@@ -25,16 +26,16 @@ export function AuthProvider({ children }) {
   const signup = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password);
   };
-  const signin = async (email, password) => {
-    setLoading(true);
-    const respond = signInWithEmailAndPassword(auth, email, password);
-    setLoading(false);
-    return respond;
-  };
-  const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
+  const signin = async (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
   const logout = async () => {
     auth.signOut();
   };
+  const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
+  const changePassword = async (newPassword) => {
+    await updatePassword(currentUser, newPassword);
+  };
+
   const value = useMemo(
     () => ({
       currentUser,
@@ -42,6 +43,7 @@ export function AuthProvider({ children }) {
       signin,
       logout,
       resetPassword,
+      changePassword,
     }),
     [currentUser]
   );

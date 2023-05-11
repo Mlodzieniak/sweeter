@@ -12,6 +12,14 @@ function Home() {
   return (
     <div className="dashboard">
       <div className="navbar">
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/edit-profile");
+          }}
+        >
+          Edit profile
+        </button>
         <button type="button" onClick={handleLogout}>
           Logout
         </button>

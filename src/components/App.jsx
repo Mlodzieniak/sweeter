@@ -12,6 +12,7 @@ import Login from "./Login";
 import Home from "./Home";
 import { useAuth } from "../contexts/AuthContext";
 import ForgotPassword from "./ForgotPassword";
+import EditProfile from "./EditProfile";
 
 export function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
@@ -63,6 +64,14 @@ function App() {
           element={
             <PrivateRoute>
               <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-profile"
+          element={
+            <PrivateRoute>
+              <EditProfile />
             </PrivateRoute>
           }
         />
