@@ -18,7 +18,7 @@ export async function loader({ params }) {
 
 export default function User() {
   const { user } = useLoaderData();
-  const { displayName, avatarURL } = user;
+  const { displayName, avatarURL, uid } = user;
   return (
     <div className="dashboard">
       <div className="navbar">
@@ -26,7 +26,7 @@ export default function User() {
         <Avatar src={avatarURL} />
       </div>
       <div className="content">
-        <Events />
+        <Events userId={uid} />
       </div>
       <div className="status">LIST</div>
     </div>
