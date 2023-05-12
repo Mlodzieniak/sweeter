@@ -18,6 +18,7 @@ export default function EditProfile() {
   const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
   const { uid } = currentUser;
+
   const changeName = async (newName) => {
     // update name inside user document
     await updateDoc(doc(db, `users/${uid}`), {
@@ -33,12 +34,21 @@ export default function EditProfile() {
       setDoc(doc(db, `events/${event.id}`), eventData);
     });
   };
-
+  const isNameTaken = async (newName) => {
+    const usersRef = collection(db, "users");
+    const usersQuery = query(usersRef, where("displayName", "==", newName));
+    const usersSnapshot = await getDocs(usersQuery);
+    return !!usersSnapshot.size;
+  };
   const handleSubmit = async () => {
     setMessage(null);
+    setError();
 
     if (nameRef.current.value.length < 3) {
       return setError("Name must be at least 4 characters long.");
+    }
+    if (await isNameTaken(nameRef.current.value)) {
+      return setError("Name is already taken.");
     }
     setLoading(true);
     try {
