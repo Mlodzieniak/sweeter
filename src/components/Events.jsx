@@ -11,6 +11,7 @@ export default function Events() {
     snapshot.forEach((e) => {
       loadedEvents.push({ ...e.data(), id: e.id });
     });
+    loadedEvents.sort((a, b) => b.postedAt - a.postedAt);
     setEvents(loadedEvents);
   };
   useEffect(() => {
