@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import { deleteDoc, doc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 
@@ -16,6 +17,7 @@ export default function Event({ data }) {
     imageURL,
     id: postID,
   } = data;
+  const navigate = useNavigate();
   const date = postedAt.toDate(); // Convert timestamp to Date object
   const formattedDate = date.toLocaleDateString("en-GB"); // Format date as dd/mm/yyyy
   const formattedTime = date.toLocaleTimeString("en-US", { hour12: false }); // Format time as 24-hour format
@@ -42,7 +44,14 @@ export default function Event({ data }) {
           Delete post
         </button>
       ) : null}
-      <div className="author">{authorDisplayName}</div>
+      <button
+        type="button"
+        onClick={() => {
+          navigate(`/user/${authorDisplayName}`);
+        }}
+      >
+        <div className="author">{authorDisplayName}</div>
+      </button>
       <div className="post-time">{formattedTimestamp}</div>
       <div className="post-text">{text}</div>
       {imageURL ? <img src={imageURL} alt="#" /> : null}
