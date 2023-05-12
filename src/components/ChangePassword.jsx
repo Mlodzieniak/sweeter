@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function EditProfile() {
@@ -9,7 +8,6 @@ export default function EditProfile() {
   const [error, setError] = useState();
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setMessage(null);
@@ -55,14 +53,7 @@ export default function EditProfile() {
         <button type="button" onClick={handleSubmit} disabled={loading}>
           Change password
         </button>
-        <button
-          type="button"
-          onClick={() => {
-            navigate("/home");
-          }}
-        >
-          Go back to dashboard
-        </button>
+
         {message ? <div className="messages">{message}</div> : null}
         {error ? <div className="error">{error}</div> : null}
       </form>

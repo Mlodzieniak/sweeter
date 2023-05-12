@@ -2,6 +2,10 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+export function validateEmail(email) {
+  const pattern = /[^\s@]+@[^\s@]+\.[^\s@]+/gi;
+  return pattern.test(email);
+}
 function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -10,11 +14,6 @@ function Signup() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  function validateEmail(email) {
-    const pattern = /[^\s@]+@[^\s@]+\.[^\s@]+/gi;
-    return pattern.test(email);
-  }
 
   const handleSubmit = async () => {
     if (!validateEmail(emailRef.current.value)) {

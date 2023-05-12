@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  updateEmail,
   updatePassword,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -58,6 +59,7 @@ export function AuthProvider({ children }) {
   const changePassword = async (newPassword) => {
     await updatePassword(currentUser, newPassword);
   };
+  const changeEmail = async (newEmail) => updateEmail(currentUser, newEmail);
 
   const value = useMemo(
     () => ({
@@ -67,6 +69,7 @@ export function AuthProvider({ children }) {
       logout,
       resetPassword,
       changePassword,
+      changeEmail,
       userData: null,
     }),
     [currentUser]
