@@ -9,7 +9,6 @@ export function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
   const credentials = useAuth();
   useEffect(() => {
-    setLoading(true);
     if (currentUser) {
       const unsubscribe = onSnapshot(
         doc(db, `users/${currentUser.uid}`),

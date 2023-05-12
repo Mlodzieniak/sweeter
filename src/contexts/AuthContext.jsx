@@ -47,7 +47,6 @@ export function AuthProvider({ children }) {
     await setDoc(doc(db, `users/${result.user.uid}`), defaultUserData, {
       merge: true,
     });
-    logout();
     return result;
   };
 
