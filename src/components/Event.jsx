@@ -15,7 +15,7 @@ export default function Event({ data }) {
     postedAt,
     text,
     imageURL,
-    id: postID,
+    id: postId,
   } = data;
   const navigate = useNavigate();
   const date = postedAt.toDate(); // Convert timestamp to Date object
@@ -24,7 +24,7 @@ export default function Event({ data }) {
   const formattedTimestamp = `${formattedDate} ${formattedTime}`;
 
   const deletePost = async () => {
-    await deleteDoc(doc(db, `events/${postID}`));
+    await deleteDoc(doc(db, `events/${postId}`));
   };
 
   useEffect(() => {
@@ -37,7 +37,13 @@ export default function Event({ data }) {
   }, [currentUser]);
 
   return (
-    <div>
+    <div
+      // type="button"
+      className="event"
+      onClick={() => {
+        navigate(`/users/${authorDisplayName}/${postId}`);
+      }}
+    >
       <Avatar src={authorAvatarURL} />
       {isAuthor ? (
         <button type="button" onClick={deletePost}>
