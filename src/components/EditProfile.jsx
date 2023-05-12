@@ -8,6 +8,14 @@ export default function EditProfile() {
   return (
     <div className="edit-profile-page">
       <h3>{currentUser.email}</h3>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/home");
+        }}
+      >
+        Go back to dashboard
+      </button>
       <div className="navbar">
         <button
           type="button"
