@@ -1,14 +1,11 @@
-import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
-import { db } from "../firebase";
 import CreatePost from "./CreatePost";
-import Event from "./Event";
+import Events from "./Events";
 
 function Home() {
-  const [events, setEvents] = useState([]);
   const navigate = useNavigate();
   const { logout, currentUser, userData } = useAuth();
   const { displayName, avatarURL } = userData;
@@ -16,17 +13,7 @@ function Home() {
     await logout();
     navigate("/");
   };
-  const fetchEvents = async () => {
-    const loadedEvents = [];
-    const snapshot = await getDocs(collection(db, "events"));
-    snapshot.forEach((e) => {
-      loadedEvents.push({ ...e.data(), id: e.id });
-    });
-    setEvents(loadedEvents);
-  };
-  useEffect(() => {
-    fetchEvents();
-  }, []);
+
   return (
     <div className="dashboard">
       <div className="navbar">
@@ -48,9 +35,7 @@ function Home() {
       </div>
       <div className="content">
         <CreatePost />
-        {events.map((event) => (
-          <Event key={event.id} data={event} />
-        ))}
+        <Events />
       </div>
       <div className="status">LIST</div>
     </div>
