@@ -1,4 +1,4 @@
-import { getDoc, doc } from "firebase/firestore";
+import { getDocs, query, where, collection } from "firebase/firestore";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import { Avatar } from "@mui/material";
@@ -6,7 +6,13 @@ import { db } from "../firebase";
 import Events from "./Events";
 
 export async function loader({ params }) {
-  const user = await getDoc(doc(db, `users/${params.userId}`));
+  let user = null;
+  const usersRef = collection(db, "users");
+  const usersQuery = query(usersRef, where("displayName", "==", params.userId));
+  const userSnapshot = await getDocs(usersQuery);
+  userSnapshot.forEach((result) => {
+    user = result.data();
+  });
   return { user };
 }
 
