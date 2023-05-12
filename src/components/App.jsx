@@ -1,6 +1,11 @@
 import React from "react";
 import "../App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
 import { PrivateRoute, PublicRoute } from "./Routes";
 import Signup from "./Signup";
 import Dashboard from "./Dashboard";
@@ -11,12 +16,12 @@ import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
 import ChangeEmail from "./ChangeEmail";
 import ChangeDisplayName from "./ChangeDisplayName";
-import User from "./User";
+import User, { loader as userLoader } from "./User";
 
 function App() {
-  return (
-    <Router>
-      <Routes>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
         <Route
           path="/"
           element={
@@ -59,10 +64,11 @@ function App() {
         />
         <Route
           path="/user/:userId"
+          loader={userLoader}
           element={
-            <PrivateRoute>
-              <User />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <User />
+            // </PrivateRoute>
           }
         />
         <Route
@@ -77,8 +83,9 @@ function App() {
           <Route path="/edit-profile/email" element={<ChangeEmail />} />
           <Route path="/edit-profile/name" element={<ChangeDisplayName />} />
         </Route>
-      </Routes>
-    </Router>
+      </>
+    )
   );
+  return <RouterProvider router={router} />;
 }
 export default App;
