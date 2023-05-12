@@ -62,18 +62,9 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route
-            path="/edit-profile/change-password"
-            element={<ChangePassword />}
-          />
-          <Route
-            path="/edit-profile/change-email"
-            element={<h3>Change Email</h3>}
-          />
-          <Route
-            path="/edit-profile/change-name"
-            element={<h3>Change Name</h3>}
-          />
+          <Route path="/edit-profile/password" element={<ChangePassword />} />
+          <Route path="/edit-profile/email" element={<h3>Change Email</h3>} />
+          <Route path="/edit-profile/name" element={<h3>Change Name</h3>} />
         </Route>
       </Routes>
     </Router>

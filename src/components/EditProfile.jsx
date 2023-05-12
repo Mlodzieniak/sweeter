@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-// import ChangePassword from "./ChangePassword";
 
 export default function EditProfile() {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ export default function EditProfile() {
         <button
           type="button"
           onClick={() => {
-            navigate("/edit-profile/change-password");
+            navigate("/edit-profile/password");
           }}
         >
           Change password
@@ -21,7 +20,7 @@ export default function EditProfile() {
         <button
           type="button"
           onClick={() => {
-            navigate("/edit-profile/change-email");
+            navigate("/edit-profile/email");
           }}
         >
           Change email
@@ -29,7 +28,7 @@ export default function EditProfile() {
         <button
           type="button"
           onClick={() => {
-            navigate("/edit-profile/change-name");
+            navigate("/edit-profile/name");
           }}
         >
           Change name
