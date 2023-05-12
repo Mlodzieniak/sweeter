@@ -11,11 +11,13 @@ export default function Events() {
     snapshot.forEach((e) => {
       loadedEvents.push({ ...e.data(), id: e.id });
     });
+    // sort events by timestamp
     loadedEvents.sort((a, b) => b.postedAt - a.postedAt);
     setEvents(loadedEvents);
   };
   useEffect(() => {
     fetchEvents();
+    return setEvents([]);
   }, []);
   return (
     <div className="events">
