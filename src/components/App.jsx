@@ -10,6 +10,7 @@ import ForgotPassword from "./ForgotPassword";
 import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
 import ChangeEmail from "./ChangeEmail";
+import ChangeDisplayName from "./ChangeDisplayName";
 
 function App() {
   return (
@@ -65,7 +66,7 @@ function App() {
         >
           <Route path="/edit-profile/password" element={<ChangePassword />} />
           <Route path="/edit-profile/email" element={<ChangeEmail />} />
-          <Route path="/edit-profile/name" element={<h3>Change Name</h3>} />
+          <Route path="/edit-profile/name" element={<ChangeDisplayName />} />
         </Route>
       </Routes>
     </Router>
