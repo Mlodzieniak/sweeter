@@ -11,6 +11,7 @@ import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
 import ChangeEmail from "./ChangeEmail";
 import ChangeDisplayName from "./ChangeDisplayName";
+import User from "./User";
 
 function App() {
   return (
@@ -53,6 +54,14 @@ function App() {
           element={
             <PrivateRoute>
               <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/user/:userId"
+          element={
+            <PrivateRoute>
+              <User />
             </PrivateRoute>
           }
         />
