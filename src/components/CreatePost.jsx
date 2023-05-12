@@ -10,8 +10,9 @@ export default function CreatePost() {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const [imageRef, setImageRef] = useState(null);
-  const { currentUser } = useAuth();
+  const { currentUser, userData } = useAuth();
   const { uid } = currentUser;
+  const { displayName, avatarURL } = userData;
 
   const resetForm = () => {
     setFile(null);
@@ -34,6 +35,8 @@ export default function CreatePost() {
         }
         const postData = {
           authorId: uid,
+          authorDisplayName: displayName,
+          authorAvatarURL: avatarURL,
           text,
           imageURL: url || "",
           postedAt: Timestamp.fromDate(new Date()),
