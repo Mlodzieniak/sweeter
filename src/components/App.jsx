@@ -8,6 +8,7 @@ import Login from "./Login";
 import Home from "./Home";
 import ForgotPassword from "./ForgotPassword";
 import EditProfile from "./EditProfile";
+import ChangePassword from "./ChangePassword";
 
 function App() {
   return (
@@ -60,7 +61,20 @@ function App() {
               <EditProfile />
             </PrivateRoute>
           }
-        />
+        >
+          <Route
+            path="/edit-profile/change-password"
+            element={<ChangePassword />}
+          />
+          <Route
+            path="/edit-profile/change-email"
+            element={<h3>Change Email</h3>}
+          />
+          <Route
+            path="/edit-profile/change-name"
+            element={<h3>Change Name</h3>}
+          />
+        </Route>
       </Routes>
     </Router>
   );
