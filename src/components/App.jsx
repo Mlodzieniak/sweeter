@@ -17,7 +17,7 @@ import ChangePassword from "./ChangePassword";
 import ChangeEmail from "./ChangeEmail";
 import ChangeDisplayName from "./ChangeDisplayName";
 import User, { loader as userLoader } from "./User";
-import EventsList from "./EventsList";
+import EventsList, { fetchAllEvents } from "./EventsList";
 import EventFull, { loader as eventLoader } from "./EventFull";
 
 function App() {
@@ -58,6 +58,7 @@ function App() {
         />
         <Route
           path="/home"
+          loader={fetchAllEvents}
           element={
             <PrivateRoute>
               <Home />
@@ -65,7 +66,12 @@ function App() {
           }
         />
         <Route path="/user/:userId" loader={userLoader} element={<User />}>
-          <Route path="/user/:userId/" element={<EventsList />} />
+          <Route
+            index
+            path="/user/:userId/"
+            loader={userLoader}
+            element={<EventsList />}
+          />
           <Route
             path="/user/:userId/:eventId"
             loader={eventLoader}

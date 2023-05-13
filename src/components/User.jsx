@@ -12,7 +12,16 @@ export async function loader({ params }) {
   userSnapshot.forEach((result) => {
     user = result.data();
   });
-  return { user };
+  const loadedEvents = [];
+  const eventsRef = collection(db, "events");
+  const eventsQuery = query(eventsRef, where("authorId", "==", user.uid));
+  const snapshot = await getDocs(eventsQuery);
+  snapshot.forEach((e) => {
+    loadedEvents.push({ ...e.data(), id: e.id });
+  });
+  // sort events by timestamp
+  loadedEvents.sort((a, b) => b.postedAt - a.postedAt);
+  return { user, loadedEvents };
 }
 
 export default function User() {
