@@ -41,6 +41,14 @@ export default function EditProfile() {
         >
           Change name
         </button>
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/edit-profile/avatar");
+          }}
+        >
+          Upload avatar
+        </button>
       </div>
       <div className="outlet">
         <Outlet />

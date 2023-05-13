@@ -1,6 +1,7 @@
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
+import { uuidv4 } from "@firebase/util";
 import { storage, db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -20,7 +21,7 @@ export default function CreatePost() {
     setImageRef(null);
   };
   const loadFile = async (event) => {
-    setFile(event.target.files[0]);
+    await setFile(event.target.files[0]);
   };
 
   const handleSubmit = async () => {
@@ -53,7 +54,7 @@ export default function CreatePost() {
   };
   useEffect(() => {
     if (file) {
-      setImageRef(ref(storage, `images/${file.name}`));
+      setImageRef(ref(storage, `images/${uuidv4()}`));
     }
   }, [file]);
 

@@ -19,6 +19,7 @@ import ChangeDisplayName from "./ChangeDisplayName";
 import User, { loader as userLoader } from "./User";
 import EventsList, { fetchAllEvents } from "./EventsList";
 import EventFull, { loader as eventLoader } from "./EventFull";
+import UploadAvatar from "./UploadAvatar";
 
 function App() {
   const router = createBrowserRouter(
@@ -94,6 +95,7 @@ function App() {
           <Route path="/edit-profile/password" element={<ChangePassword />} />
           <Route path="/edit-profile/email" element={<ChangeEmail />} />
           <Route path="/edit-profile/name" element={<ChangeDisplayName />} />
+          <Route path="/edit-profile/avatar" element={<UploadAvatar />} />
         </Route>
       </>
     )
