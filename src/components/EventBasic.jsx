@@ -44,7 +44,7 @@ export default function EventBasic({ data }) {
       setIsEventPageLoaded(true);
   }, [data]);
   return (
-    <div>
+    <div className="event">
       {isEventPageLoaded ? null : (
         <button
           type="button"

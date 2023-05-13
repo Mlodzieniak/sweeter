@@ -4,6 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import EventBasic from "./EventBasic";
 import Comments from "./Comments";
 import { db } from "../firebase";
+import CreateComment from "./CreateComment";
 
 export async function loader({ params }) {
   const eventSnap = await getDoc(doc(db, `events/${params.eventId}`));
@@ -17,6 +18,7 @@ export default function EventFull() {
   return (
     <div>
       <EventBasic data={event} />
+      <CreateComment data={event} />
       <Comments />
     </div>
   );

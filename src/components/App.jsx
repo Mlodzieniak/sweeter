@@ -75,7 +75,11 @@ function App() {
           <Route
             path="/user/:userId/:eventId"
             loader={eventLoader}
-            element={<EventFull />}
+            element={
+              <PrivateRoute>
+                <EventFull />
+              </PrivateRoute>
+            }
           />
         </Route>
         <Route
