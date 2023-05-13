@@ -1,5 +1,12 @@
 import React from "react";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { useLoaderData } from "react-router-dom";
 import EventBasic from "./EventBasic";
 import Comments from "./Comments";
@@ -10,16 +17,23 @@ export async function loader({ params }) {
   const eventSnap = await getDoc(doc(db, `events/${params.eventId}`));
   const event = eventSnap.data();
   event.id = eventSnap.id;
-  return { event };
+  const comments = [];
+  const commentsRef = collection(db, "comments");
+  const commentsQuery = query(commentsRef, where("eventId", "==", event.id));
+  const commentsData = await getDocs(commentsQuery);
+  commentsData.forEach((com) => {
+    comments.push(com.data());
+  });
+  return { event, comments };
 }
 // detailed event with comments
 export default function EventFull() {
-  const { event } = useLoaderData();
+  const { event, comments } = useLoaderData();
   return (
     <div>
       <EventBasic data={event} />
       <CreateComment data={event} />
-      <Comments />
+      <Comments data={comments} />
     </div>
   );
 }
