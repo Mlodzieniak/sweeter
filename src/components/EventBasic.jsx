@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import { deleteDoc, doc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 
 // Simple event data to display on EventList
 export default function EventBasic({ data }) {
   const [isAuthor, setIsAuthor] = useState(false);
+  const [isEventPageLoaded, setIsEventPageLoaded] = useState(false);
   const { currentUser } = useAuth();
   const {
     authorDisplayName,
@@ -19,6 +20,7 @@ export default function EventBasic({ data }) {
     id: postId,
   } = data;
   const navigate = useNavigate();
+  const location = useLocation();
   const date = postedAt.toDate(); // Convert timestamp to Date object
   const formattedDate = date.toLocaleDateString("en-GB"); // Format date as dd/mm/yyyy
   const formattedTime = date.toLocaleTimeString("en-US", { hour12: false }); // Format time as 24-hour format
@@ -37,17 +39,24 @@ export default function EventBasic({ data }) {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    if (location.pathname === `/user/${authorDisplayName}/${postId}`)
+      setIsEventPageLoaded(true);
+  }, [data]);
   return (
     <div>
-      <button
-        type="button"
-        className="event"
-        onClick={() => {
-          navigate(`/user/${authorDisplayName}/${postId}`);
-        }}
-      >
-        Go to event
-      </button>
+      {isEventPageLoaded ? null : (
+        <button
+          type="button"
+          className="event"
+          onClick={() => {
+            navigate(`/user/${authorDisplayName}/${postId}`);
+          }}
+        >
+          Go to event
+        </button>
+      )}
+
       <Avatar src={authorAvatarURL} />
       {isAuthor ? (
         <button type="button" onClick={deletePost}>

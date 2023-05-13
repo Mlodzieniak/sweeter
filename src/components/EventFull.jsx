@@ -8,6 +8,7 @@ import { db } from "../firebase";
 export async function loader({ params }) {
   const eventSnap = await getDoc(doc(db, `events/${params.eventId}`));
   const event = eventSnap.data();
+  event.id = eventSnap.id;
   return { event };
 }
 // detailed event with comments
