@@ -33,6 +33,15 @@ export default function EditProfile() {
       eventData.authorDisplayName = newName;
       setDoc(doc(db, `events/${event.id}`), eventData);
     });
+    // update name inside comments collection
+    const commentsRef = collection(db, "comments");
+    const commentsQuery = query(commentsRef, where("authorId", "==", uid));
+    const commentsSnapshot = await getDocs(commentsQuery);
+    commentsSnapshot.forEach((event) => {
+      const commentData = event.data();
+      commentData.authorDisplayName = newName;
+      setDoc(doc(db, `comments/${event.id}`), commentData);
+    });
   };
   const isNameTaken = async (newName) => {
     const usersRef = collection(db, "users");

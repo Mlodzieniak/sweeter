@@ -40,6 +40,7 @@ export default function EventBasic({ data }) {
   }, [currentUser]);
 
   useEffect(() => {
+    // loads button only current page is not event page
     if (location.pathname === `/user/${authorDisplayName}/${postId}`)
       setIsEventPageLoaded(true);
   }, [data]);
