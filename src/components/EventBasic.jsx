@@ -51,7 +51,11 @@ export default function EventBasic({ data }) {
           type="button"
           className="event"
           onClick={() => {
-            navigate(`/user/${authorDisplayName}/${postId}`);
+            if (currentUser) {
+              navigate(`/user/${authorDisplayName}/${postId}`);
+            } else {
+              navigate(`/login`);
+            }
           }}
         >
           Go to event
