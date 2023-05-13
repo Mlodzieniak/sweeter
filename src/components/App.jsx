@@ -26,6 +26,7 @@ function App() {
       <>
         <Route
           path="/"
+          loader={fetchAllEvents}
           element={
             <PublicRoute>
               <Dashboard />
