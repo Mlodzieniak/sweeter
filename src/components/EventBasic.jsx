@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 
-export default function Event({ data }) {
+// Simple event data to display on EventList
+export default function EventBasic({ data }) {
   const [isAuthor, setIsAuthor] = useState(false);
   const { currentUser } = useAuth();
   const {
@@ -37,13 +38,16 @@ export default function Event({ data }) {
   }, [currentUser]);
 
   return (
-    <div
-      // type="button"
-      className="event"
-      onClick={() => {
-        navigate(`/users/${authorDisplayName}/${postId}`);
-      }}
-    >
+    <div>
+      <button
+        type="button"
+        className="event"
+        onClick={() => {
+          navigate(`/user/${authorDisplayName}/${postId}`);
+        }}
+      >
+        Go to event
+      </button>
       <Avatar src={authorAvatarURL} />
       {isAuthor ? (
         <button type="button" onClick={deletePost}>

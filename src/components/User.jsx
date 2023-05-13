@@ -1,9 +1,8 @@
 import { getDocs, query, where, collection } from "firebase/firestore";
 import React from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, Outlet } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import { db } from "../firebase";
-import Events from "./Events";
 
 export async function loader({ params }) {
   let user = null;
@@ -18,7 +17,7 @@ export async function loader({ params }) {
 
 export default function User() {
   const { user } = useLoaderData();
-  const { displayName, avatarURL, uid } = user;
+  const { displayName, avatarURL } = user;
   const navigate = useNavigate();
   return (
     <div className="dashboard">
@@ -35,7 +34,7 @@ export default function User() {
         <Avatar src={avatarURL} />
       </div>
       <div className="content">
-        <Events userId={uid} />
+        <Outlet />
       </div>
       <div className="status">LIST</div>
     </div>

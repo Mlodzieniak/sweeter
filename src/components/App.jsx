@@ -17,6 +17,8 @@ import ChangePassword from "./ChangePassword";
 import ChangeEmail from "./ChangeEmail";
 import ChangeDisplayName from "./ChangeDisplayName";
 import User, { loader as userLoader } from "./User";
+import EventsList from "./EventsList";
+import EventFull, { loader as eventLoader } from "./EventFull";
 
 function App() {
   const router = createBrowserRouter(
@@ -62,15 +64,14 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/user/:userId"
-          loader={userLoader}
-          element={
-            // <PrivateRoute>
-            <User />
-            // </PrivateRoute>
-          }
-        />
+        <Route path="/user/:userId" loader={userLoader} element={<User />}>
+          <Route path="/user/:userId/" element={<EventsList />} />
+          <Route
+            path="/user/:userId/:eventId"
+            loader={eventLoader}
+            element={<EventFull />}
+          />
+        </Route>
         <Route
           path="/edit-profile"
           element={

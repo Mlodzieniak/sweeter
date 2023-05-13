@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
-import Event from "./Event";
+import EventBasic from "./EventBasic";
 
-export default function Events({ userId }) {
+export default function EventsList({ userId }) {
   const [events, setEvents] = useState([]);
 
   const fetchAllEvents = async () => {
@@ -40,7 +40,7 @@ export default function Events({ userId }) {
   return (
     <div className="events">
       {events.map((event) => (
-        <Event key={event.id} data={event} />
+        <EventBasic key={event.id} data={event} />
       ))}
     </div>
   );

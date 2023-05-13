@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Events from "./Events";
+import Events from "./EventsList";
 
 function Dashboard() {
   const navigate = useNavigate();

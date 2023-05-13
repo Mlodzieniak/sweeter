@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
 import CreatePost from "./CreatePost";
-import Events from "./Events";
+import EventsList from "./EventsList";
 
 function Home() {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Home() {
       </div>
       <div className="content">
         <CreatePost />
-        <Events />
+        <EventsList />
       </div>
       <div className="status">Followed users</div>
     </div>
