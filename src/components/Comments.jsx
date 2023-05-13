@@ -1,6 +1,12 @@
 import React from "react";
+import Comment from "./Comment";
 
 export default function Comments({ data }) {
-  console.log(data);
-  return <div>Comments</div>;
+  return (
+    <div className="comments">
+      {data.map((com) => (
+        <Comment key={com.id} data={com} />
+      ))}
+    </div>
+  );
 }
