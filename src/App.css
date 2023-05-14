@@ -3,6 +3,10 @@
     width: 100%;
 }
 
+.navigation {
+    display: flex;
+}
+
 .navbar {
     /* width: 100px; */
     flex: 1;
