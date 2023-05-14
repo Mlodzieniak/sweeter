@@ -1,21 +1,10 @@
 import React from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function EditProfile() {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
   return (
     <div className="edit-profile-page">
-      <h3>{currentUser.email}</h3>
-      <button
-        type="button"
-        onClick={() => {
-          navigate("/home");
-        }}
-      >
-        Go back to dashboard
-      </button>
       <div className="navbar">
         <button
           type="button"
