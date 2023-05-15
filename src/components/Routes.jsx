@@ -25,7 +25,7 @@ export function PrivateRoute({ children }) {
     }
     setLoading(false);
   }, [currentUser]);
-  return currentUser ? !loading && children : <Navigate to="/login" />;
+  return currentUser ? !loading && children : <Navigate to="/" />;
 }
 export function PublicRoute({ children }) {
   const { currentUser } = useAuth();

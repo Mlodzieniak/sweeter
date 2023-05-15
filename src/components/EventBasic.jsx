@@ -30,6 +30,13 @@ export default function EventBasic({ data }) {
   const deletePost = async () => {
     await deleteDoc(doc(db, `events/${postId}`));
   };
+  const handleRedirect = (path) => {
+    if (currentUser) {
+      navigate(path);
+    } else {
+      navigate(`/login`);
+    }
+  };
 
   useEffect(() => {
     if (currentUser) {
@@ -51,13 +58,7 @@ export default function EventBasic({ data }) {
         <button
           type="button"
           className="event"
-          onClick={() => {
-            if (currentUser) {
-              navigate(`/user/${authorDisplayName}/${postId}`);
-            } else {
-              navigate(`/login`);
-            }
-          }}
+          onClick={() => handleRedirect(`/user/${authorDisplayName}/${postId}`)}
         >
           Go to event
         </button>
@@ -71,9 +72,7 @@ export default function EventBasic({ data }) {
       ) : null}
       <button
         type="button"
-        onClick={() => {
-          navigate(`/user/${authorDisplayName}`);
-        }}
+        onClick={() => handleRedirect(`/user/${authorDisplayName}`)}
       >
         <div className="author">{authorDisplayName}</div>
       </button>

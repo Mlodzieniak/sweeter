@@ -27,18 +27,11 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  // const getDefAvatarURL = async () => {
-  //   const avatarRef = ref(storage, "images/defaults/avatar.png");
-  //   const url = await getDownloadURL(avatarRef);
-  //   return url;
-  // };
-
   const logout = async () => {
     await auth.signOut();
   };
   const signup = async (email, password) => {
     const result = await createUserWithEmailAndPassword(auth, email, password);
-    // const avatarURL = await getDefAvatarURL();
     const defaultUserData = {
       uid: result.user.uid,
       displayName: result.user.displayName || `user${uuidv4().slice(0, 7)}`,

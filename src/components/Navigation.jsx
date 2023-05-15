@@ -9,7 +9,6 @@ export default function Navigation() {
   const { displayName, avatarURL } = userData;
   const handleLogout = async () => {
     await logout();
-    navigate("/");
   };
 
   return (
