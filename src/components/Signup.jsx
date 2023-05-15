@@ -15,7 +15,8 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!validateEmail(emailRef.current.value)) {
       return setError("Email is not valid");
     }
@@ -34,7 +35,7 @@ function Signup() {
   };
   return (
     <div className="signup-page">
-      <form action="post" className="register-form">
+      <form action="post" className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="email">
           Email:
           <input type="text" name="email" id="email" ref={emailRef} />
@@ -57,25 +58,26 @@ function Signup() {
             ref={passwordConfirmationRef}
           />
         </label>
-        <button type="button" onClick={handleSubmit} disabled={loading}>
+        <button type="submit" disabled={loading}>
           Register
         </button>
-        <div>
-          Already have an account?{" "}
-          <button type="button" onClick={() => navigate("/login")}>
-            Login with existing account
-          </button>
-        </div>
-        <button
-          type="button"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Go back to dashboard
-        </button>
+
         {error ? <div className="error">{error}</div> : null}
       </form>
+      <div>
+        Already have an account?{" "}
+        <button type="button" onClick={() => navigate("/login")}>
+          Login with existing account
+        </button>
+      </div>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Go back to dashboard
+      </button>
     </div>
   );
 }
