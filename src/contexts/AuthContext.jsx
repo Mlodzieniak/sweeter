@@ -8,7 +8,6 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-// import { getDownloadURL, ref } from "firebase/storage";
 import React, {
   createContext,
   useContext,
@@ -53,7 +52,12 @@ export function AuthProvider({ children }) {
     await updatePassword(currentUser, newPassword);
   };
   const changeEmail = async (newEmail) => updateEmail(currentUser, newEmail);
-
+  const dummyUserData = {
+    uid: "",
+    displayName: "",
+    email: "",
+    avatarURL: "",
+  };
   const value = useMemo(
     () => ({
       currentUser,
@@ -63,7 +67,7 @@ export function AuthProvider({ children }) {
       resetPassword,
       changePassword,
       changeEmail,
-      userData: null,
+      userData: dummyUserData,
     }),
     [currentUser]
   );

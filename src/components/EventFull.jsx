@@ -33,7 +33,6 @@ export default function EventFull() {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    console.log("subscribe");
     const commentsRef = collection(db, "comments");
     const commentsQuery = query(commentsRef, where("eventId", "==", event.id));
     const unsubscribe = onSnapshot(commentsQuery, (snapshot) => {
@@ -46,7 +45,6 @@ export default function EventFull() {
     });
 
     return () => {
-      console.log("unsibscrive");
       unsubscribe();
     };
   }, []);

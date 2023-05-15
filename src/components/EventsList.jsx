@@ -20,7 +20,6 @@ export default function EventsList() {
   // const { loadedEvents, unsubscribe } = useLoaderData();
   const [loadedEvents, setLoadedEvents] = useState([]);
   useEffect(() => {
-    console.log("subscribe");
     const unsubscribe = onSnapshot(collection(db, "events"), (snapshot) => {
       const events = [];
       snapshot.forEach((e) => {
@@ -31,7 +30,6 @@ export default function EventsList() {
     });
 
     return () => {
-      console.log("unsibscrive");
       unsubscribe();
     };
   }, []);
