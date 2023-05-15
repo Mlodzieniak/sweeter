@@ -33,7 +33,7 @@ export default function User() {
         <Avatar src={avatarURL} />
       </div>
       <div className="content">
-        <Outlet userData={user} />
+        <Outlet />
       </div>
       <div className="status">LIST</div>
     </div>

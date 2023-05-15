@@ -26,19 +26,25 @@ export default function UserEventsList() {
     // userSnapshot.forEach((result) => {
     //   user = result.data();
     // });
+    console.log(userId);
     const eventsQuery = query(
       collection(db, "events"),
       where("authorId", "==", userId)
     );
-    const unsubscribe = onSnapshot(eventsQuery, (snapshot) => {
-      const events = [];
-      snapshot.forEach((e) => {
-        events.push({ ...e.data(), id: e.id });
-      });
-      events.sort((a, b) => b.postedAt - a.postedAt);
-      setLoadedEvents(events);
-    });
-    console.log("subscribe");
+    const unsubscribe = onSnapshot(
+      eventsQuery,
+      (snapshot) => {
+        const events = [];
+        snapshot.forEach((e) => {
+          events.push({ ...e.data(), id: e.id });
+        });
+        events.sort((a, b) => b.postedAt - a.postedAt);
+        setLoadedEvents(events);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     return unsubscribe;
   };
 
@@ -46,7 +52,6 @@ export default function UserEventsList() {
     const unsubscribe = subscribeUserEvents;
     return () => {
       unsubscribe();
-      console.log("unsubscribe");
     };
   }, []);
 
