@@ -4,6 +4,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
+import { updateParentEvent } from "./CreateComment";
 
 // Simple event data to display on EventList
 export default function Comment({ data }) {
@@ -16,6 +17,7 @@ export default function Comment({ data }) {
     authorId,
     postedAt,
     text,
+    eventId,
     commentId,
   } = data;
   const date = postedAt.toDate(); // Convert timestamp to Date object
@@ -25,6 +27,7 @@ export default function Comment({ data }) {
 
   const deleteComment = async () => {
     await deleteDoc(doc(db, `comments/${commentId}`));
+    await updateParentEvent(eventId, -1);
   };
 
   useEffect(() => {

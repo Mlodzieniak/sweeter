@@ -17,6 +17,7 @@ export default function EventBasic({ data }) {
     postedAt,
     text,
     imageURL,
+    commentsSize,
     id: postId,
   } = data;
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ export default function EventBasic({ data }) {
       </button>
       <div className="post-time">{formattedTimestamp}</div>
       <div className="post-text">{text}</div>
+      <div className="comments-size">Comments: {commentsSize}</div>
       {imageURL ? <img src={imageURL} alt="#" /> : null}
     </div>
   );

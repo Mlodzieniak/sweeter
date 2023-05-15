@@ -39,6 +39,7 @@ export default function CreatePost() {
           authorDisplayName: displayName,
           authorAvatarURL: avatarURL,
           text,
+          commentsSize: 0,
           imageURL: url || "",
           postedAt: Timestamp.fromDate(new Date()),
         };

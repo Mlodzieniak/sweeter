@@ -1,8 +1,19 @@
-import { Timestamp, setDoc, doc } from "firebase/firestore";
+import { Timestamp, setDoc, getDoc, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { uuidv4 } from "@firebase/util";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
+
+export const updateParentEvent = async (eventId, value) => {
+  // value should be a number +1 or -1 that indicates in which direction to change commentsSize
+  const eventRef = doc(db, `events/${eventId}`);
+  const eventSnap = await getDoc(eventRef);
+  const currentCommentsSize = eventSnap.data().commentsSize || 0;
+  const newCommentsSize = currentCommentsSize + value;
+  await updateDoc(doc(db, `events/${eventId}`), {
+    commentsSize: newCommentsSize,
+  });
+};
 
 export default function CreateComment({ data: eventData }) {
   const [text, setText] = useState("");
@@ -28,6 +39,7 @@ export default function CreateComment({ data: eventData }) {
           postedAt: Timestamp.fromDate(new Date()),
         };
         await setDoc(doc(db, `comments/${postData.commentId}`), postData);
+        updateParentEvent(postData.eventId, 1);
         setText("");
         setMessage("Posted.");
       } catch (e) {
