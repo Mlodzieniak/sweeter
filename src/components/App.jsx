@@ -11,7 +11,6 @@ import Signup from "./Signup";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import Home from "./Home";
-import ForgotPassword from "./ForgotPassword";
 import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
 import ChangeEmail from "./ChangeEmail";
@@ -50,14 +49,6 @@ function App() {
           element={
             <PublicRoute>
               <Login />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/password-recovery"
-          element={
-            <PublicRoute>
-              <ForgotPassword />
             </PublicRoute>
           }
         />

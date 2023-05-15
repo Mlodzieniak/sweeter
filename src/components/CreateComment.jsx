@@ -22,7 +22,8 @@ export default function CreateComment({ data: eventData }) {
   const { currentUser, userData } = useAuth();
   const { uid } = currentUser;
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const { displayName, avatarURL } = userData;
     const { id } = eventData;
     setError(null);
@@ -42,8 +43,8 @@ export default function CreateComment({ data: eventData }) {
         updateParentEvent(postData.eventId, 1);
         setText("");
         setMessage("Posted.");
-      } catch (e) {
-        setError(e);
+      } catch (newError) {
+        setError(newError);
       }
     } else {
       setError("You cannot send empty post.");
@@ -51,7 +52,7 @@ export default function CreateComment({ data: eventData }) {
   };
 
   return (
-    <form action="post">
+    <form action="post" onSubmit={handleSubmit}>
       <div>Make a comment</div>
       <label htmlFor="postText">
         <input
@@ -65,9 +66,7 @@ export default function CreateComment({ data: eventData }) {
         />
       </label>
 
-      <button type="button" onClick={handleSubmit}>
-        Post comment
-      </button>
+      <button type="button">Post comment</button>
       {error ? <div className="error">{error}</div> : null}
       {message ? <div className="message">{message}</div> : null}
     </form>

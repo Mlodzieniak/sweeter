@@ -24,7 +24,8 @@ export default function CreatePost() {
     await setFile(event.target.files[0]);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setError(null);
     setMessage(null);
     if (text.length !== 0) {
@@ -46,8 +47,8 @@ export default function CreatePost() {
         await addDoc(collection(db, "events"), postData);
         resetForm();
         setMessage("Posted.");
-      } catch (e) {
-        setError(e);
+      } catch (newError) {
+        setError(newError);
       }
     } else {
       setError("You cannot send empty post.");
@@ -60,7 +61,7 @@ export default function CreatePost() {
   }, [file]);
 
   return (
-    <form action="post">
+    <form action="post" onSubmit={handleSubmit}>
       <div>CreatePost</div>
       <label htmlFor="postText">
         <input
@@ -76,9 +77,7 @@ export default function CreatePost() {
       <label htmlFor="loadFile">
         <input type="file" accept="image/*" onChange={loadFile} />
       </label>
-      <button type="button" onClick={handleSubmit}>
-        Post
-      </button>
+      <button type="button">Post</button>
       {error ? <div className="error">{error}</div> : null}
       {message ? <div className="message">{message}</div> : null}
     </form>

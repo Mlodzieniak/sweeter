@@ -9,7 +9,8 @@ export default function EditProfile() {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setMessage(null);
     if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
       return setError("Passwords do not match.");
@@ -29,7 +30,7 @@ export default function EditProfile() {
   };
   return (
     <div className="signup-page">
-      <form action="post" className="register-form">
+      <form action="post" className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="password">
           New password:
           <input
@@ -50,7 +51,7 @@ export default function EditProfile() {
             required
           />
         </label>
-        <button type="button" onClick={handleSubmit} disabled={loading}>
+        <button type="submit" disabled={loading}>
           Change password
         </button>
 

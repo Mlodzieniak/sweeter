@@ -48,7 +48,8 @@ export default function ChangeDisplayName() {
     const usersSnapshot = await getDocs(usersQuery);
     return !!usersSnapshot.size;
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setMessage(null);
     setError();
 
@@ -70,19 +71,13 @@ export default function ChangeDisplayName() {
   };
   return (
     <div className="signup-page">
-      <form action="post" className="register-form">
-        <label htmlFor="email">
+      <form action="post" className="register-form" onSubmit={handleSubmit}>
+        <label htmlFor="new-name">
           New name:
-          <input
-            type="email"
-            name="email"
-            id="new-email"
-            ref={nameRef}
-            required
-          />
+          <input type="text" name="new-name" id="new-name" ref={nameRef} />
         </label>
 
-        <button type="button" onClick={handleSubmit} disabled={loading}>
+        <button type="button" disabled={loading}>
           Change name
         </button>
         {message ? <div className="messages">{message}</div> : null}

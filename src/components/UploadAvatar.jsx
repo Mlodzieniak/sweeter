@@ -50,7 +50,8 @@ export default function UploadAvatar() {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setMessage(null);
     setError();
     setLoading(true);
@@ -72,12 +73,12 @@ export default function UploadAvatar() {
   }, [file]);
   return (
     <div className="signup-page">
-      <form action="post" className="register-form">
+      <form action="post" className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="loadFile">
           <input type="file" accept="image/*" onChange={loadFile} />
         </label>
 
-        <button type="button" onClick={handleSubmit} disabled={loading}>
+        <button type="submit" disabled={loading}>
           Upload
         </button>
         {message ? <div className="messages">{message}</div> : null}

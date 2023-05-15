@@ -9,9 +9,9 @@ export default function EditProfile() {
   const [loading, setLoading] = useState(false);
   const { changeEmail } = useAuth();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setMessage(null);
-
     if (!validateEmail(emailRef.current.value)) {
       return setError("Invalid email");
     }
@@ -27,19 +27,13 @@ export default function EditProfile() {
   };
   return (
     <div className="signup-page">
-      <form action="post" className="register-form">
+      <form action="post" className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="email">
           New email:
-          <input
-            type="email"
-            name="email"
-            id="new-email"
-            ref={emailRef}
-            required
-          />
+          <input type="email" name="email" id="new-email" ref={emailRef} />
         </label>
 
-        <button type="button" onClick={handleSubmit} disabled={loading}>
+        <button type="button" disabled={loading}>
           Change email
         </button>
         {message ? <div className="messages">{message}</div> : null}

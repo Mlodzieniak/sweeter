@@ -10,7 +10,8 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
     try {
       await signin(emailRef.current.value, passwordRef.current.value);
@@ -24,7 +25,7 @@ function Signup() {
   };
   return (
     <div className="signup-page">
-      <form action="post" className="register-form">
+      <form action="post" className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="email">
           Email:
           <input type="text" name="email" id="email" ref={emailRef} />
@@ -38,34 +39,33 @@ function Signup() {
             ref={passwordRef}
           />
         </label>
-
-        <button type="button" onClick={handleSubmit} disabled={loading}>
+        <button type="submit" disabled={loading}>
           Login
-        </button>
-        <div>
-          Dont you have an account?{" "}
-          <button type="button" onClick={() => navigate("/signup")}>
-            Register new account
-          </button>
-        </div>
-        <button
-          type="button"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Go back to dashboard
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            navigate("/password-recovery");
-          }}
-        >
-          Recover password
         </button>
         {error ? <div className="error">{error}</div> : null}
       </form>
+      <div>
+        Dont you have an account?{" "}
+        <button type="button" onClick={() => navigate("/signup")}>
+          Register new account
+        </button>
+      </div>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Go back to dashboard
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          navigate("/password-recovery");
+        }}
+      >
+        Recover password
+      </button>
     </div>
   );
 }
