@@ -1,24 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { collection, onSnapshot, getDocs } from "firebase/firestore";
-// import { useLoaderData } from "react-router-dom";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import EventBasic from "./EventBasic";
 
-// NOT USED CURRENTLY, old way of fetching data but i leave it here if newone has problems
-export const fetchAllEvents = async () => {
-  const loadedEvents = [];
-  const snapshot = await getDocs(collection(db, "events"));
-  snapshot.forEach((e) => {
-    loadedEvents.push({ ...e.data(), id: e.id });
-  });
-  // sort events by timestamp
-  loadedEvents.sort((a, b) => b.postedAt - a.postedAt);
-  return { loadedEvents };
-};
-
 export default function EventsList() {
-  // const { loadedEvents, unsubscribe } = useLoaderData();
   const [loadedEvents, setLoadedEvents] = useState([]);
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "events"), (snapshot) => {
       const events = [];

@@ -3,7 +3,6 @@ import {
   collection,
   doc,
   getDoc,
-  // getDocs,
   query,
   where,
   onSnapshot,
@@ -14,20 +13,14 @@ import Comments from "./Comments";
 import { db } from "../firebase";
 import CreateComment from "./CreateComment";
 
+// fetches event data from db
 export async function loader({ params }) {
   const eventSnap = await getDoc(doc(db, `events/${params.eventId}`));
   const event = eventSnap.data();
   event.id = eventSnap.id;
-  // const comments = [];
-  // const commentsRef = collection(db, "comments");
-  // const commentsQuery = query(commentsRef, where("eventId", "==", event.id));
-  // const commentsData = await getDocs(commentsQuery);
-  // commentsData.forEach((com) => {
-  //   comments.push(com.data());
-  // });
   return { event };
 }
-// detailed event with comments
+// load all possible data associated with event
 export default function EventFull() {
   const { event } = useLoaderData();
   const [comments, setComments] = useState([]);

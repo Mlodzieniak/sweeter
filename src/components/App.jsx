@@ -16,11 +16,11 @@ import ChangePassword from "./ChangePassword";
 import ChangeEmail from "./ChangeEmail";
 import ChangeDisplayName from "./ChangeDisplayName";
 import User, { loader as userLoader } from "./User";
-import EventsList, { fetchAllEvents } from "./EventsList";
 import EventFull, { loader as eventLoader } from "./EventFull";
 import UploadAvatar from "./UploadAvatar";
 import ErrorPage from "./ErrorPage";
 import Navigation from "./Navigation";
+import UserEventsList, { userIdLoader } from "./UserEventsList";
 
 function App() {
   const router = createBrowserRouter(
@@ -28,7 +28,6 @@ function App() {
       <>
         <Route
           path="/"
-          loader={fetchAllEvents}
           errorElement={<ErrorPage />}
           element={
             <PublicRoute>
@@ -59,7 +58,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="/home" loader={fetchAllEvents} element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route
             path="/user/:userId"
             loader={userLoader}
@@ -67,7 +66,7 @@ function App() {
             errorElement={<ErrorPage />}
           >
             <Route errorElement={<ErrorPage />}>
-              <Route index loader={userLoader} element={<EventsList />} />
+              <Route index loader={userIdLoader} element={<UserEventsList />} />
               <Route
                 path="/user/:userId/:eventId"
                 loader={eventLoader}
