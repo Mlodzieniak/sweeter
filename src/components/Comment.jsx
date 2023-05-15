@@ -50,7 +50,7 @@ export default function Comment({ data }) {
       <button
         type="button"
         onClick={() => {
-          navigate(`/user/${authorDisplayName}`);
+          navigate(`/user/${authorId}`);
         }}
       >
         <div className="author">{authorDisplayName}</div>
