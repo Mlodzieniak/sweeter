@@ -5,7 +5,7 @@ import {
   onSnapshot,
   query,
   where,
-  getDocs,
+  // getDocs,
 } from "firebase/firestore";
 import { useLoaderData } from "react-router-dom";
 import { db } from "../firebase";
@@ -19,16 +19,16 @@ export default function UserEventsList() {
 
   // messy function, first based on url it fetches correctUser to retieve uid, and then uid is used to fetch all user events
   const subscribeUserEvents = async () => {
-    let user = null;
-    const usersRef = collection(db, "users");
-    const usersQuery = query(usersRef, where("displayName", "==", userId));
-    const userSnapshot = await getDocs(usersQuery);
-    userSnapshot.forEach((result) => {
-      user = result.data();
-    });
+    // let user = null;
+    // const usersRef = collection(db, "users");
+    // const usersQuery = query(usersRef, where("displayName", "==", userId));
+    // const userSnapshot = await getDocs(usersQuery);
+    // userSnapshot.forEach((result) => {
+    //   user = result.data();
+    // });
     const eventsQuery = query(
       collection(db, "events"),
-      where("authorId", "==", user.uid)
+      where("authorId", "==", userId)
     );
     const unsubscribe = onSnapshot(eventsQuery, (snapshot) => {
       const events = [];
@@ -38,6 +38,7 @@ export default function UserEventsList() {
       events.sort((a, b) => b.postedAt - a.postedAt);
       setLoadedEvents(events);
     });
+    console.log("subscribe");
     return unsubscribe;
   };
 
@@ -45,6 +46,7 @@ export default function UserEventsList() {
     const unsubscribe = subscribeUserEvents;
     return () => {
       unsubscribe();
+      console.log("unsubscribe");
     };
   }, []);
 

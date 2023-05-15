@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 
 // Simple event data to display on EventList
-export default function EventBasic({ data }) {
+export default function EventBasic({ data, commentsLength }) {
   const [isAuthor, setIsAuthor] = useState(false);
   const [isEventPageLoaded, setIsEventPageLoaded] = useState(false);
   const { currentUser } = useAuth();
@@ -49,16 +49,17 @@ export default function EventBasic({ data }) {
 
   useEffect(() => {
     // loads button only current page is not event page
-    if (location.pathname === `/user/${authorDisplayName}/${postId}`)
+    if (location.pathname === `/user/${authorId}/${postId}`)
       setIsEventPageLoaded(true);
   }, [data]);
+
   return (
     <div className="event">
-      {isEventPageLoaded ? null : (
+      {!isEventPageLoaded && (
         <button
           type="button"
           className="event"
-          onClick={() => handleRedirect(`/user/${authorDisplayName}/${postId}`)}
+          onClick={() => handleRedirect(`/user/${authorId}/${postId}`)}
         >
           Go to event
         </button>
@@ -70,15 +71,17 @@ export default function EventBasic({ data }) {
           Delete post
         </button>
       ) : null}
-      <button
-        type="button"
-        onClick={() => handleRedirect(`/user/${authorDisplayName}`)}
-      >
+      <button type="button" onClick={() => handleRedirect(`/user/${authorId}`)}>
         <div className="author">{authorDisplayName}</div>
       </button>
       <div className="post-time">{formattedTimestamp}</div>
       <div className="post-text">{text}</div>
-      <div className="comments-size">Comments: {commentsSize}</div>
+      {/* depending on location of rendering different variable is chosen, 
+      commentsLength is provided from fetched event data,
+      commentsSize is array.length of comments array */}
+      <div className="comments-size">
+        Comments: {isEventPageLoaded ? commentsLength : commentsSize}
+      </div>
       {imageURL ? <img src={imageURL} alt="#" /> : null}
     </div>
   );

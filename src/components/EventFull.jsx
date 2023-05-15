@@ -43,7 +43,7 @@ export default function EventFull() {
   }, []);
   return (
     <div>
-      <EventBasic data={event} />
+      <EventBasic data={event} commentsLength={comments.length} />
       <CreateComment data={event} />
       <Comments data={comments} />
     </div>
