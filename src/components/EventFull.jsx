@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   collection,
   doc,
   getDoc,
-  getDocs,
+  // getDocs,
   query,
   where,
+  onSnapshot,
 } from "firebase/firestore";
 import { useLoaderData } from "react-router-dom";
 import EventBasic from "./EventBasic";
@@ -17,18 +18,38 @@ export async function loader({ params }) {
   const eventSnap = await getDoc(doc(db, `events/${params.eventId}`));
   const event = eventSnap.data();
   event.id = eventSnap.id;
-  const comments = [];
-  const commentsRef = collection(db, "comments");
-  const commentsQuery = query(commentsRef, where("eventId", "==", event.id));
-  const commentsData = await getDocs(commentsQuery);
-  commentsData.forEach((com) => {
-    comments.push(com.data());
-  });
-  return { event, comments };
+  // const comments = [];
+  // const commentsRef = collection(db, "comments");
+  // const commentsQuery = query(commentsRef, where("eventId", "==", event.id));
+  // const commentsData = await getDocs(commentsQuery);
+  // commentsData.forEach((com) => {
+  //   comments.push(com.data());
+  // });
+  return { event };
 }
 // detailed event with comments
 export default function EventFull() {
-  const { event, comments } = useLoaderData();
+  const { event } = useLoaderData();
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    console.log("subscribe");
+    const commentsRef = collection(db, "comments");
+    const commentsQuery = query(commentsRef, where("eventId", "==", event.id));
+    const unsubscribe = onSnapshot(commentsQuery, (snapshot) => {
+      const newComments = [];
+      snapshot.forEach((com) => {
+        newComments.push(com.data());
+      });
+      newComments.sort((a, b) => b.postedAt - a.postedAt);
+      setComments(newComments);
+    });
+
+    return () => {
+      console.log("unsibscrive");
+      unsubscribe();
+    };
+  }, []);
   return (
     <div>
       <EventBasic data={event} />
