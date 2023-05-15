@@ -1,5 +1,6 @@
-import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { Timestamp, setDoc, doc } from "firebase/firestore";
 import React, { useState } from "react";
+import { uuidv4 } from "@firebase/util";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -23,9 +24,10 @@ export default function CreateComment({ data: eventData }) {
           authorAvatarURL: avatarURL,
           text,
           eventId: id,
+          commentId: uuidv4(),
           postedAt: Timestamp.fromDate(new Date()),
         };
-        await addDoc(collection(db, `comments`), postData);
+        await setDoc(doc(db, `comments/${postData.commentId}`), postData);
         setText("");
         setMessage("Posted.");
       } catch (e) {

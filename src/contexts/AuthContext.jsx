@@ -8,7 +8,7 @@ import {
   updatePassword,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
+// import { getDownloadURL, ref } from "firebase/storage";
 import React, {
   createContext,
   useContext,
@@ -16,7 +16,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { auth, db, storage } from "../firebase";
+import { auth, db } from "../firebase";
 
 const AuthContext = createContext(null);
 
@@ -27,23 +27,23 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  const getDefAvatarURL = async () => {
-    const avatarRef = ref(storage, "images/defaults/avatar.png");
-    const url = await getDownloadURL(avatarRef);
-    return url;
-  };
+  // const getDefAvatarURL = async () => {
+  //   const avatarRef = ref(storage, "images/defaults/avatar.png");
+  //   const url = await getDownloadURL(avatarRef);
+  //   return url;
+  // };
 
   const logout = async () => {
     await auth.signOut();
   };
   const signup = async (email, password) => {
     const result = await createUserWithEmailAndPassword(auth, email, password);
-    const avatarURL = await getDefAvatarURL();
+    // const avatarURL = await getDefAvatarURL();
     const defaultUserData = {
       uid: result.user.uid,
       displayName: result.user.displayName || `user${uuidv4().slice(0, 7)}`,
       email: result.user.email,
-      avatarURL,
+      avatarURL: "",
     };
     await setDoc(doc(db, `users/${result.user.uid}`), defaultUserData, {
       merge: true,

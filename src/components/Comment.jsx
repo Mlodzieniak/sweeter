@@ -16,7 +16,7 @@ export default function Comment({ data }) {
     authorId,
     postedAt,
     text,
-    id: comId,
+    commentId,
   } = data;
   const date = postedAt.toDate(); // Convert timestamp to Date object
   const formattedDate = date.toLocaleDateString("en-GB"); // Format date as dd/mm/yyyy
@@ -24,7 +24,7 @@ export default function Comment({ data }) {
   const formattedTimestamp = `${formattedDate} ${formattedTime}`;
 
   const deleteComment = async () => {
-    await deleteDoc(doc(db, `comments/${comId}`));
+    await deleteDoc(doc(db, `comments/${commentId}`));
   };
 
   useEffect(() => {

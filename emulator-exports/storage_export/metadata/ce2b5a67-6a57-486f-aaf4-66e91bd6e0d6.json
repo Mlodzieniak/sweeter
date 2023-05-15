@@ -1,0 +1,19 @@
+{
+  "name": "images/defaults/avatar.png",
+  "bucket": "sweeter-f615d.appspot.com",
+  "metageneration": 1,
+  "generation": 1684099164426,
+  "contentType": "image/png",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "c4b954dd-25c1-4818-960c-99887e3b2e34"
+  ],
+  "etag": "seL33gpBZCc5/BXcssl58kdYKw0",
+  "customMetadata": {},
+  "timeCreated": "2023-05-14T21:19:24.426Z",
+  "updated": "2023-05-14T21:19:24.426Z",
+  "size": 14575,
+  "md5Hash": "FBKOaaCxJlPY+ndsN+CyrA==",
+  "crc32c": "1929257156"
+}
