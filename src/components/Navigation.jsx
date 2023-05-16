@@ -5,10 +5,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditIcon from "@mui/icons-material/Edit";
 import { useAuth } from "../contexts/AuthContext";
+import { ReactComponent as DuckLogo } from "../assets/duck.svg";
 
 export default function Navigation() {
   const navigate = useNavigate();
-  const { logout, userData } = useAuth();
+  const { logout, userData, currentUser } = useAuth();
   const { displayName, avatarURL } = userData;
   const handleLogout = async () => {
     await logout();
@@ -22,13 +23,29 @@ export default function Navigation() {
           type="button"
           className="navbar-button"
           onClick={() => {
+            navigate("/about");
+          }}
+        >
+          <DuckLogo className="icon" />
+          <span className="button-description">Sweeter</span>
+        </button>
+        <button
+          type="button"
+          className="navbar-button"
+          onClick={() => {
             navigate("/home");
           }}
         >
           <HomeIcon sx={{ width: 36, height: 36 }} />
           <span className="button-description">Home</span>
         </button>
-        <button type="button" className="navbar-button">
+        <button
+          type="button"
+          className="navbar-button"
+          onClick={() => {
+            navigate(`/user/${currentUser.uid}`);
+          }}
+        >
           <Avatar src={avatarURL} sx={{ width: 36, height: 36 }} />
           <span className="button-description">{displayName}</span>
         </button>

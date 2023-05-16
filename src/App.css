@@ -10,6 +10,12 @@ html {
     font-size: 16px;
 }
 
+body {
+    /* background-color: var(--blue); */
+    background-color: var(--extra-light-gray);
+
+}
+
 :root {
     --blue: #1DA1F2;
     --black: #14171A;
@@ -19,8 +25,12 @@ html {
     --round-button-size: 56px;
 }
 
+.icon {
+    width: 36px;
+}
+
 .navbar {
-    flex: 1;
+    /* flex: 1; */
     padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
@@ -43,14 +53,18 @@ html {
 
 
 .home {
-    flex: 4;
+    /* flex: 4; */
     display: flex;
     border-color: red;
 }
 
 .navigation {
     display: flex;
+    justify-content: center;
+    gap: 2rem;
 }
+
+.navigation>* {}
 
 
 
@@ -95,7 +109,19 @@ button:hover {
 
 }
 
-@media (max-width: 767px) {}
+@media (max-width: 767px) {
+    .navigation {
+        flex-direction: column;
+    }
+
+    .navbar {
+        flex-direction: row;
+        justify-content: space-around;
+        /* justify-content: stretch; */
+        /* align-items: space-around; */
+        gap: auto;
+    }
+}
 
 @media (min-width:768px) and (max-width: 1199px) {}
 

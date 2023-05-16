@@ -21,6 +21,7 @@ import UploadAvatar from "./UploadAvatar";
 import ErrorPage from "./ErrorPage";
 import Navigation from "./Navigation";
 import UserEventsList from "./UserEventsList";
+import About from "./About";
 
 function App() {
   const router = createBrowserRouter(
@@ -35,6 +36,7 @@ function App() {
             </PublicRoute>
           }
         />
+        <Route path="/about" element={<About />} />
         <Route
           path="/signup"
           element={
