@@ -18,7 +18,6 @@ export default function Navigation() {
   return (
     <div className="navigation">
       <div className="navbar">
-        {/* <LogoButton /> */}
         <button
           type="button"
           className="navbar-button"
@@ -49,7 +48,6 @@ export default function Navigation() {
           <Avatar src={avatarURL} sx={{ width: 36, height: 36 }} />
           <span className="button-description">{displayName}</span>
         </button>
-
         <button
           type="button"
           className="navbar-button"

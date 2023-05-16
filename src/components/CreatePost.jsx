@@ -2,6 +2,7 @@ import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { uuidv4 } from "@firebase/util";
+import { Avatar } from "@mui/material";
 import { storage, db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -61,25 +62,28 @@ export default function CreatePost() {
   }, [file]);
 
   return (
-    <form action="post" className="create-post" onSubmit={handleSubmit}>
-      <div>CreatePost</div>
-      <label htmlFor="postText">
-        <input
-          type="text"
-          name="postText"
-          id="post-text"
-          onChange={(event) => {
-            setText(event.target.value);
-          }}
-          value={text}
-        />
-      </label>
-      <label htmlFor="loadFile">
-        <input type="file" accept="image/*" onChange={loadFile} />
-      </label>
-      <button type="button">Post</button>
-      {error ? <div className="error">{error}</div> : null}
-      {message ? <div className="message">{message}</div> : null}
-    </form>
+    <div className="create-post-wrapper">
+      <Avatar src={avatarURL} sx={{ width: 36, height: 36 }} />
+      <form action="post" className="create-post" onSubmit={handleSubmit}>
+        <div>CreatePost</div>
+        <label htmlFor="eventText">
+          <input
+            type="text"
+            name="eventText"
+            className="event-text"
+            onChange={(event) => {
+              setText(event.target.value);
+            }}
+            value={text}
+          />
+        </label>
+        <label htmlFor="loadFile">
+          <input type="file" accept="image/*" onChange={loadFile} />
+        </label>
+        <button type="button">Post</button>
+        {error ? <div className="error">{error}</div> : null}
+        {message ? <div className="message">{message}</div> : null}
+      </form>
+    </div>
   );
 }
