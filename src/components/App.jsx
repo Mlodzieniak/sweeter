@@ -20,7 +20,7 @@ import EventFull, { loader as eventLoader } from "./EventFull";
 import UploadAvatar from "./UploadAvatar";
 import ErrorPage from "./ErrorPage";
 import Navigation from "./Navigation";
-import UserEventsList, { userIdLoader } from "./UserEventsList";
+import UserEventsList from "./UserEventsList";
 
 function App() {
   const router = createBrowserRouter(
@@ -66,7 +66,7 @@ function App() {
             errorElement={<ErrorPage />}
           >
             <Route errorElement={<ErrorPage />}>
-              <Route index loader={userIdLoader} element={<UserEventsList />} />
+              <Route index loader={userLoader} element={<UserEventsList />} />
               <Route
                 path="/user/:userId/:eventId"
                 loader={eventLoader}

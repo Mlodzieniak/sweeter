@@ -12,13 +12,6 @@ import { Avatar } from "@mui/material";
 import { db } from "../firebase";
 
 export async function loader({ params }) {
-  // let user = null;
-  // const usersRef = collection(db, "users");
-  // const usersQuery = query(usersRef, where("displayName", "==", params.userId));
-  // const userSnapshot = await getDocs(usersQuery);
-  // userSnapshot.forEach((result) => {
-  //   user = result.data();
-  // });
   const userSnapshot = await getDoc(doc(db, `users/${params.userId}`));
   return { user: userSnapshot.data() };
 }

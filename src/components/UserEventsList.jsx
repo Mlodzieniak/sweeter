@@ -1,35 +1,18 @@
-/* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
-import {
-  collection,
-  onSnapshot,
-  query,
-  where,
-  // getDocs,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useLoaderData } from "react-router-dom";
 import { db } from "../firebase";
 import EventBasic from "./EventBasic";
 
-export const userIdLoader = async ({ params }) => ({ userId: params.userId });
-
 export default function UserEventsList() {
-  const { userId } = useLoaderData();
+  const { user } = useLoaderData();
   const [loadedEvents, setLoadedEvents] = useState([]);
 
-  // messy function, first based on url it fetches correctUser to retieve uid, and then uid is used to fetch all user events
-  const subscribeUserEvents = async () => {
-    // let user = null;
-    // const usersRef = collection(db, "users");
-    // const usersQuery = query(usersRef, where("displayName", "==", userId));
-    // const userSnapshot = await getDocs(usersQuery);
-    // userSnapshot.forEach((result) => {
-    //   user = result.data();
-    // });
-    console.log(userId);
+  useEffect(() => {
+    console.log(user);
     const eventsQuery = query(
       collection(db, "events"),
-      where("authorId", "==", userId)
+      where("authorId", "==", user.uid)
     );
     const unsubscribe = onSnapshot(
       eventsQuery,
@@ -45,11 +28,6 @@ export default function UserEventsList() {
         console.log(error);
       }
     );
-    return unsubscribe;
-  };
-
-  useEffect(() => {
-    const unsubscribe = subscribeUserEvents;
     return () => {
       unsubscribe();
     };
