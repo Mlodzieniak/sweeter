@@ -77,7 +77,7 @@ export default function ChangeDisplayName() {
           <input type="text" name="new-name" id="new-name" ref={nameRef} />
         </label>
 
-        <button type="button" disabled={loading}>
+        <button type="submit" disabled={loading}>
           Change name
         </button>
         {message ? <div className="messages">{message}</div> : null}

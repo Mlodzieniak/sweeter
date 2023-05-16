@@ -61,7 +61,7 @@ export default function CreatePost() {
   }, [file]);
 
   return (
-    <form action="post" onSubmit={handleSubmit}>
+    <form action="post" className="create-post" onSubmit={handleSubmit}>
       <div>CreatePost</div>
       <label htmlFor="postText">
         <input

@@ -1,11 +1,14 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
+import EditIcon from "@mui/icons-material/Edit";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Navigation() {
   const navigate = useNavigate();
-  const { logout, currentUser, userData } = useAuth();
+  const { logout, userData } = useAuth();
   const { displayName, avatarURL } = userData;
   const handleLogout = async () => {
     await logout();
@@ -14,33 +17,38 @@ export default function Navigation() {
   return (
     <div className="navigation">
       <div className="navbar">
+        {/* <LogoButton /> */}
         <button
           type="button"
+          className="navbar-button"
           onClick={() => {
             navigate("/home");
           }}
         >
-          Go back to dashboard
+          <HomeIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">Home</span>
         </button>
-        <h3>{currentUser.email}</h3>
-        <h3>{displayName}</h3>
-        <Avatar src={avatarURL} />
+        <button type="button" className="navbar-button">
+          <Avatar src={avatarURL} sx={{ width: 36, height: 36 }} />
+          <span className="button-description">{displayName}</span>
+        </button>
 
         <button
           type="button"
+          className="navbar-button"
           onClick={() => {
             navigate("/edit-profile");
           }}
         >
-          Edit profile
+          <EditIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">Edit profile</span>
         </button>
-        <button type="button" onClick={handleLogout}>
-          Logout
+        <button type="button" className="navbar-button" onClick={handleLogout}>
+          <LogoutIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">Logout</span>
         </button>
       </div>
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 }

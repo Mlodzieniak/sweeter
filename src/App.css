@@ -1,39 +1,117 @@
-.dashboard {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+    font-family: 'Roboto', sans-serif;
+    /* border: solid black 1px; */
+}
+
+html {
+    font-size: 16px;
+}
+
+:root {
+    --blue: #1DA1F2;
+    --black: #14171A;
+    --dark-gray: #657786;
+    --light-gray: #AAB8C2;
+    --extra-light-gray: #F5F8FA;
+    --round-button-size: 56px;
+}
+
+.navbar {
+    flex: 1;
+    padding: 0.5rem 1rem;
     display: flex;
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    width: var(--round-button-size);
+    height: var(--round-button-size);
+    font-size: 1.5rem;
+    padding: 0;
+    border: none;
+    border-radius: calc(var(--round-button-size) / 2);
+}
+
+
+.home {
+    flex: 4;
+    display: flex;
+    border-color: red;
 }
 
 .navigation {
     display: flex;
 }
 
-.navbar {
-    /* width: 100px; */
-    flex: 1;
-}
+
 
 .content {
-    width: 600px;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.status {
-    width: 350px;
-}
+.status {}
 
 .register-form {
     display: flex;
     flex-direction: column;
-    width: 500px;
     align-items: flex-end;
 }
 
 .event {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    cursor: pointer;
 }
 
 #post-text {
-    width: 100%;
     box-sizing: border-box;
+}
+
+button {
+    font-size: 1rem;
+    font-weight: 700;
+    background: none;
+    padding: 0 16px;
+    min-height: 32px;
+    border-radius: 16px;
+    border: 1px solid;
+    transition: all 0.3s;
+}
+
+.button-description {
+    white-space: nowrap;
+    display: none;
+}
+
+button:hover {
+    background-color: var(--light-gray);
+
+}
+
+@media (max-width: 767px) {}
+
+@media (min-width:768px) and (max-width: 1199px) {}
+
+@media (min-width: 1200px) {
+    .button-description {
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .navbar {
+        align-items: flex-start;
+    }
+
+    .navbar-button {
+        justify-content: space-between;
+        width: auto;
+        padding: 0 18px;
+    }
 }

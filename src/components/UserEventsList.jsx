@@ -9,7 +9,6 @@ export default function UserEventsList() {
   const [loadedEvents, setLoadedEvents] = useState([]);
 
   useEffect(() => {
-    console.log(user);
     const eventsQuery = query(
       collection(db, "events"),
       where("authorId", "==", user.uid)
