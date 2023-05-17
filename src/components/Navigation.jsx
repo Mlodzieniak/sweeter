@@ -4,6 +4,7 @@ import { Avatar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditIcon from "@mui/icons-material/Edit";
+import GroupsIcon from "@mui/icons-material/Groups";
 import { useAuth } from "../contexts/AuthContext";
 import { ReactComponent as DuckLogo } from "../assets/duck.svg";
 
@@ -38,6 +39,18 @@ export default function Navigation() {
           <HomeIcon sx={{ width: 36, height: 36 }} />
           <span className="button-description">Home</span>
         </button>
+
+        <button
+          type="button"
+          className="navbar-button followed-button"
+          onClick={() => {
+            navigate("/followed");
+          }}
+        >
+          <GroupsIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">Followed</span>
+        </button>
+
         <button
           type="button"
           className="navbar-button"

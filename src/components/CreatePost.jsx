@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { uuidv4 } from "@firebase/util";
@@ -62,7 +62,8 @@ export default function CreatePost() {
         text,
         commentsSize: 0,
         imageURL: url || "",
-        postedAt: Timestamp.fromDate(new Date()),
+        // postedAt: Timestamp.fromDate(new Date()),
+        postedAt: Date.now(),
       };
       await addDoc(collection(db, "events"), postData);
       resetForm();

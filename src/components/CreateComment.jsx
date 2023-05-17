@@ -66,7 +66,7 @@ export default function CreateComment({ data: eventData }) {
         />
       </label>
 
-      <button type="button">Post comment</button>
+      <button type="submit">Post comment</button>
       {error ? <div className="error">{error}</div> : null}
       {message ? <div className="message">{message}</div> : null}
     </form>
