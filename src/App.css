@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    background-color: var(--extra-light-gray);
+    background-color: var(--extra-extra-light-gray);
 }
 
 :root {
@@ -18,8 +18,10 @@ body {
     --black: #14171A;
     --dark-gray: #657786;
     --light-gray: #AAB8C2;
-    --extra-light-gray: #F5F8FA;
+    --extra-light-gray: #E1E8ED;
+    --extra-extra-light-gray: #F5F8FA;
     --round-button-size: 56px;
+    --light-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1)
 }
 
 .icon {
@@ -29,13 +31,14 @@ body {
 .navigation {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    /* gap: 2rem; */
 }
 
 
 
 .navbar {
-    /* flex: 1; */
+    flex: 1;
+    max-width: 150px;
     padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
@@ -61,7 +64,7 @@ body {
 .home {
     display: flex;
     border-color: red;
-
+    flex: 6;
 
 }
 
@@ -72,8 +75,77 @@ body {
     gap: 1.5rem;
 }
 
-.create-post-wrapper>* {
+.create-post {
     /* padding: 1rem; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    gap: 1rem;
+
+}
+
+.event-text {
+    font-size: 1.6rem;
+    padding: 0.6rem;
+    background-color: var(--extra-extra-light-gray);
+    border: none;
+    transition: background-color 0.3s;
+    display: block;
+    /* margin-bottom: 0.6rem; */
+    resize: none;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.event-text:focus {
+    outline: none;
+    background-color: var(--extra-light-gray);
+    box-shadow: var(--light-shadow);
+}
+
+.loaded-image-wrapper {
+    position: relative;
+}
+
+.loaded-image {
+    object-fit: contain;
+    max-width: 400px;
+}
+
+.cancel-button {
+    position: absolute;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--extra-extra-light-gray);
+    width: var(--round-button-size);
+    height: var(--round-button-size);
+    border-radius: calc(var(--round-button-size)/2);
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0;
+}
+
+.event-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: scale 0.3s;
+}
+
+.event-buttons>label:hover {
+    scale: 1.1;
+}
+
+.upload-image-input {
+    display: none;
+}
+
+
+
+
+.feedback {
+    display: block;
 }
 
 
@@ -127,10 +199,8 @@ button:hover {
 
     .navbar {
         flex-direction: row;
-        justify-content: space-around;
-        /* justify-content: stretch; */
-        /* align-items: space-around; */
-        gap: auto;
+        justify-content: space-between;
+        max-width: 767px;
     }
 }
 
@@ -144,6 +214,7 @@ button:hover {
 
     .navbar {
         align-items: flex-start;
+        max-width: 350px;
     }
 
     .navbar-button {

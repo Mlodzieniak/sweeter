@@ -1,63 +1,79 @@
+/* eslint-disable no-param-reassign */
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { uuidv4 } from "@firebase/util";
 import { Avatar } from "@mui/material";
+import ImageIcon from "@mui/icons-material/Image";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import { storage, db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [text, setText] = useState("");
   const [error, setError] = useState(null);
-  const [message, setMessage] = useState(null);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const [imageRef, setImageRef] = useState(null);
   const { currentUser, userData } = useAuth();
   const { uid } = currentUser;
   const { displayName, avatarURL } = userData;
 
+  const reader = new FileReader();
+  reader.onload = () => {
+    setImagePreview(reader.result);
+  };
   const resetForm = () => {
     setFile(null);
     setText("");
     setImageRef(null);
+    setImagePreview(null);
+    setSubmitDisabled(true);
   };
   const loadFile = async (event) => {
     await setFile(event.target.files[0]);
+  };
+  const handleTextareaChange = (event) => {
+    setText(event.target.value);
+    // adjusting textare height
+    event.target.style.height = "auto";
+    event.target.style.height = `${event.target.scrollHeight}px`;
+    // prevents from sending empty or too long tweet
+    setSubmitDisabled(!event.target.value || event.target.value.length > 500);
+  };
+  const handleCancel = () => {
+    setImagePreview(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    setMessage(null);
-    if (text.length !== 0) {
-      let url = "";
-      try {
-        if (file) {
-          const result = await uploadBytes(imageRef, file);
-          url = await getDownloadURL(result.ref);
-        }
-        const postData = {
-          authorId: uid,
-          authorDisplayName: displayName,
-          authorAvatarURL: avatarURL,
-          text,
-          commentsSize: 0,
-          imageURL: url || "",
-          postedAt: Timestamp.fromDate(new Date()),
-        };
-        await addDoc(collection(db, "events"), postData);
-        resetForm();
-        setMessage("Posted.");
-      } catch (newError) {
-        setError(newError);
+    let url = "";
+    try {
+      if (file) {
+        const result = await uploadBytes(imageRef, file);
+        url = await getDownloadURL(result.ref);
       }
-    } else {
-      setError("You cannot send empty post.");
+      const postData = {
+        authorId: uid,
+        authorDisplayName: displayName,
+        authorAvatarURL: avatarURL,
+        text,
+        commentsSize: 0,
+        imageURL: url || "",
+        postedAt: Timestamp.fromDate(new Date()),
+      };
+      await addDoc(collection(db, "events"), postData);
+      resetForm();
+    } catch (newError) {
+      setError(newError);
     }
   };
   useEffect(() => {
     if (file) {
       setImageRef(ref(storage, `images/${uuidv4()}`));
+      reader.readAsDataURL(file);
     }
   }, [file]);
 
@@ -65,24 +81,46 @@ export default function CreatePost() {
     <div className="create-post-wrapper">
       <Avatar src={avatarURL} sx={{ width: 36, height: 36 }} />
       <form action="post" className="create-post" onSubmit={handleSubmit}>
-        <div>CreatePost</div>
         <label htmlFor="eventText">
-          <input
+          <textarea
+            rows={1}
             type="text"
             name="eventText"
             className="event-text"
-            onChange={(event) => {
-              setText(event.target.value);
-            }}
+            onChange={handleTextareaChange}
             value={text}
+            placeholder="What is happening?!"
           />
         </label>
-        <label htmlFor="loadFile">
-          <input type="file" accept="image/*" onChange={loadFile} />
-        </label>
-        <button type="button">Post</button>
-        {error ? <div className="error">{error}</div> : null}
-        {message ? <div className="message">{message}</div> : null}
+        {imagePreview && (
+          <div className="loaded-image-wrapper">
+            <button
+              type="button"
+              className="cancel-button"
+              onClick={handleCancel}
+            >
+              <ClearOutlinedIcon />
+            </button>
+            <img src={imagePreview} alt="Selected" className="loaded-image" />
+          </div>
+        )}
+        <div className="event-buttons">
+          <label htmlFor="loadFile">
+            <ImageIcon />
+            <input
+              name="loadFile"
+              id="loadFile"
+              type="file"
+              accept="image/*"
+              className="upload-image-input"
+              onChange={loadFile}
+            />
+          </label>
+          <button type="submit" disabled={submitDisabled}>
+            Tweet
+          </button>
+        </div>
+        {error ? <div className="error feedback">{error}</div> : null}
       </form>
     </div>
   );
