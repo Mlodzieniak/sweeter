@@ -1,6 +1,7 @@
 import { Timestamp, setDoc, getDoc, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { uuidv4 } from "@firebase/util";
+import { Alert, Avatar } from "@mui/material";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -21,10 +22,10 @@ export default function CreateComment({ data: eventData }) {
   const [message, setMessage] = useState(null);
   const { currentUser, userData } = useAuth();
   const { uid } = currentUser;
+  const { displayName, avatarURL } = userData;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { displayName, avatarURL } = userData;
     const { id } = eventData;
     setError(null);
     setMessage(null);
@@ -42,7 +43,7 @@ export default function CreateComment({ data: eventData }) {
         await setDoc(doc(db, `comments/${postData.commentId}`), postData);
         updateParentEvent(postData.eventId, 1);
         setText("");
-        setMessage("Posted.");
+        setMessage("You have replied");
       } catch (newError) {
         setError(newError);
       }
@@ -52,23 +53,35 @@ export default function CreateComment({ data: eventData }) {
   };
 
   return (
-    <form action="post" onSubmit={handleSubmit}>
-      <div>Make a comment</div>
-      <label htmlFor="postText">
-        <input
-          type="text"
-          name="postText"
-          id="post-text"
-          onChange={(event) => {
-            setText(event.target.value);
-          }}
-          value={text}
-        />
-      </label>
-
-      <button type="submit">Post comment</button>
-      {error ? <div className="error">{error}</div> : null}
-      {message ? <div className="message">{message}</div> : null}
-    </form>
+    <div className="create-post-wrapper">
+      <Avatar src={avatarURL} />
+      <form action="post" onSubmit={handleSubmit}>
+        <div>Replying to {eventData.authorDisplayName} </div>
+        <label htmlFor="postText">
+          <textarea
+            rows={1}
+            type="text"
+            name="postText"
+            id="post-text"
+            className="event-text"
+            placeholder="Tweet your reply!"
+            onChange={(event) => {
+              setText(event.target.value);
+              if (text !== 0) {
+                setError(null);
+                setMessage(null);
+                console.log(eventData);
+              }
+            }}
+            value={text}
+          />
+        </label>
+        <button type="submit" className="tweet-button">
+          Reply
+        </button>
+        {error && <Alert severity="error">{error}</Alert>}
+        {message && <Alert>{message}</Alert>}
+      </form>
+    </div>
   );
 }

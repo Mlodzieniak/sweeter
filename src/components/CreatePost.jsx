@@ -3,7 +3,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { uuidv4 } from "@firebase/util";
-import { Avatar } from "@mui/material";
+import { Alert, Avatar } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import { storage, db } from "../firebase";
@@ -117,11 +117,15 @@ export default function CreatePost() {
               onChange={loadFile}
             />
           </label>
-          <button type="submit" disabled={submitDisabled}>
+          <button
+            type="submit"
+            disabled={submitDisabled}
+            className="tweet-button"
+          >
             Tweet
           </button>
         </div>
-        {error ? <div className="error feedback">{error}</div> : null}
+        {error && <Alert severity="error">{error}</Alert>}
       </form>
     </div>
   );

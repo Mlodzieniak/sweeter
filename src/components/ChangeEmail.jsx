@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { TextField, Alert } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
 import { validateEmail } from "./Signup";
 
@@ -28,16 +29,12 @@ export default function EditProfile() {
   return (
     <div className="signup-page">
       <form action="post" className="register-form" onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          New email:
-          <input type="email" name="email" id="new-email" ref={emailRef} />
-        </label>
-
+        <TextField label="Email*" inputRef={emailRef} />
         <button type="button" disabled={loading}>
           Change email
         </button>
-        {message ? <div className="messages">{message}</div> : null}
-        {error ? <div className="error">{error}</div> : null}
+        {message && <Alert>{message}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
       </form>
     </div>
   );

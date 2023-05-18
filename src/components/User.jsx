@@ -26,7 +26,7 @@ export default function User() {
 
           <div className="detailed-data-wrapper">
             <div className="about">
-              <div className="about-label">About:</div>
+              <div className="label">About</div>
               <div className="about-text">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
                 deleniti iusto soluta labore similique rem adipisci commodi eius
@@ -34,12 +34,18 @@ export default function User() {
                 minima ad id animi!
               </div>
             </div>
-            <div className="joined-at">
-              <div className="joined-at-label">Joined at:</div>
-              <div className="joined-at-date"> {joinedAt}</div>
+            <div className="data">
+              <div className="label">Joined at</div>
+              <div className="value">01.01.1999 {joinedAt}</div>
             </div>
-            <div className="events-count">Tweets: 0</div>
-            <div className="followers-count">Followers 0</div>
+            <div className="data">
+              <div className="label">Tweets</div>
+              <div className="value">0</div>
+            </div>
+            <div className="data">
+              <div className="label">Followers</div>
+              <div className="value">0</div>
+            </div>
             <button type="button" className="follow-button">
               Follow
             </button>

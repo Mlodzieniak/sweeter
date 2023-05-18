@@ -7,6 +7,7 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useRef, useState } from "react";
+import { TextField, Alert } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 
@@ -56,6 +57,9 @@ export default function ChangeDisplayName() {
     if (nameRef.current.value.length < 3) {
       return setError("Name must be at least 4 characters long.");
     }
+    if (nameRef.current.value.length > 15) {
+      return setError("Name must be maximum 15 characters long.");
+    }
     if (await isNameTaken(nameRef.current.value)) {
       return setError("Name is already taken.");
     }
@@ -72,16 +76,12 @@ export default function ChangeDisplayName() {
   return (
     <div className="signup-page">
       <form action="post" className="register-form" onSubmit={handleSubmit}>
-        <label htmlFor="new-name">
-          New name:
-          <input type="text" name="new-name" id="new-name" ref={nameRef} />
-        </label>
-
+        <TextField label="New name*" inputRef={nameRef} />
         <button type="submit" disabled={loading}>
           Change name
         </button>
-        {message ? <div className="messages">{message}</div> : null}
-        {error ? <div className="error">{error}</div> : null}
+        {message && <Alert>{message}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
       </form>
     </div>
   );

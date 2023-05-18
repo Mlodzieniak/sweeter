@@ -26,7 +26,7 @@ export default function Navigation() {
             navigate("/about");
           }}
         >
-          <DuckLogo className="icon" />
+          <DuckLogo className="logo-icon" />
           <span className="button-description">Sweeter</span>
         </button>
         <button

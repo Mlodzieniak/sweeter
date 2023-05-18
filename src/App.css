@@ -19,13 +19,14 @@ body {
     --dark-gray: #657786;
     --light-gray: #AAB8C2;
     --extra-light-gray: #E1E8ED;
-    --extra-extra-light-gray: #F5F8FA;
+    --extra-extra-light-gray: #FFFFFF;
     --round-button-size: 56px;
     --light-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1)
 }
 
-.icon {
+.logo-icon {
     width: 36px;
+    height: 36px;
 }
 
 .navigation {
@@ -60,6 +61,11 @@ body {
     padding: 0;
     border: none;
     border-radius: calc(var(--round-button-size) / 2);
+}
+
+.navbar-button:hover {
+    background-color: var(--light-gray);
+    color: var(--black);
 }
 
 
@@ -205,6 +211,7 @@ body {
 .author-name:hover {
     background-color: var(--extra-extra-light-gray);
     text-decoration: underline;
+    color: var(--black);
 }
 
 .event-image {
@@ -225,6 +232,23 @@ body {
     gap: 1rem;
 }
 
+.user-profile .label {
+    color: var(--dark-gray);
+    font-weight: 300;
+}
+
+.user-profile .data {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.user-profile .value {
+    font-size: 1.2rem;
+    font-weight: 500;
+
+}
+
 .avatar-wrapper {
     width: 200px;
     height: 200px;
@@ -234,15 +258,17 @@ body {
     width: 200px;
     height: 200px;
     object-fit: cover;
-    border: var(--black) solid 1.5px;
+    border: var(--black) solid 0.5px;
     border-radius: 0.5rem;
     box-sizing: border-box;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
 }
 
 .basic-data-wrapper {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    align-items: center;
 }
 
 .detailed-data-wrapper {
@@ -309,6 +335,7 @@ button {
     border: 1px solid;
     transition: all 0.3s;
     cursor: pointer;
+
 }
 
 .button-description {
@@ -317,8 +344,29 @@ button {
 }
 
 button:hover {
-    background-color: var(--light-gray);
+    background-color: var(--black);
+    color: var(--extra-extra-light-gray);
 
+}
+
+.tweet-button {
+    /* background-color: none; */
+    border: var(--blue) 1.5px solid;
+    color: var(--blue);
+    box-sizing: border-box;
+}
+
+.tweet-button:disabled {
+    border-color: var(--light-gray);
+    color: var(--light-gray);
+    cursor: not-allowed;
+}
+
+
+.tweet-button:hover {
+    background-color: var(--blue);
+    color: var(--extra-extra-light-gray);
+    border-color: var(--blue);
 }
 
 .menu-drop-button {
@@ -358,6 +406,10 @@ button:hover {
 
     .sidebar-wrapper {
         display: none;
+    }
+
+    .signup-page {
+        /* height: auto; */
     }
 
 
