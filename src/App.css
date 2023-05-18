@@ -45,7 +45,6 @@ body {
     align-items: center;
     gap: 1rem;
     position: sticky;
-    top: 0;
     height: min-content;
     z-index: 5;
 }
@@ -76,7 +75,7 @@ body {
     /* display: flex; */
 }
 
-.followed-wrapper {
+.sidebar-wrapper {
     flex: 1;
 }
 
@@ -135,12 +134,6 @@ body {
 
 .feedback {
     display: block;
-}
-
-.register-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
 }
 
 .event {
@@ -225,6 +218,79 @@ body {
     padding: 0.5rem;
 }
 
+.user-profile {
+    padding: 1rem;
+    border-bottom: solid 0.1px var(--light-gray);
+    display: flex;
+    gap: 1rem;
+}
+
+.avatar-wrapper {
+    width: 200px;
+    height: 200px;
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: var(--black) solid 1.5px;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+}
+
+.basic-data-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detailed-data-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.user-name {
+    font-size: 32px;
+}
+
+.signup-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 3rem;
+    box-shadow: var(--light-shadow);
+    gap: 1rem;
+    width: 350px;
+}
+
+.register-button {
+    background-color: var(--blue);
+    color: #fff;
+}
+
+.register-nav {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.signup-page button:hover {
+    background-color: var(--black);
+    color: var(--extra-extra-light-gray)
+}
+
 #post-text {
     box-sizing: border-box;
 }
@@ -266,7 +332,7 @@ button:hover {
 
 @media (max-width: 767px) {
     .navigation {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 
     .navbar {
@@ -276,6 +342,8 @@ button:hover {
         border-bottom: var(--light-shadow);
         background-color: var(--extra-extra-light-gray);
         flex: 0;
+        bottom: 0;
+        box-shadow: var(--light-shadow);
     }
 
     .home {
@@ -288,7 +356,7 @@ button:hover {
     }
 
 
-    .followed-wrapper {
+    .sidebar-wrapper {
         display: none;
     }
 
@@ -302,6 +370,7 @@ button:hover {
 
     .navbar {
         flex: 0;
+        top: 0;
     }
 
     .home {
@@ -309,15 +378,12 @@ button:hover {
     }
 
     .content {
-        /* max-width: 600px; */
         flex: 5;
     }
 
-    .followed-wrapper {
-        border: solid 2px black;
+    .sidebar-wrapper {
         flex: 2;
         max-width: 400px;
-        /* width: 400px; */
     }
 }
 
@@ -330,6 +396,7 @@ button:hover {
     .navbar {
         align-items: flex-start;
         flex: 0;
+        top: 0;
         max-width: 350px;
     }
 
@@ -346,7 +413,7 @@ button:hover {
         flex: 3;
     }
 
-    .followed-wrapper {
+    .sidebar-wrapper {
         border: solid 2px black;
         flex: 2;
         max-width: 400px;

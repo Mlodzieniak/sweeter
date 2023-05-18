@@ -5,21 +5,16 @@ import Events from "./EventsList";
 function Dashboard() {
   const navigate = useNavigate();
   return (
-    <div className="dashboard">
-      <div className="navbar">navbar</div>
-      <div className="content">
-        <Events />
-      </div>
-      <div className="status">
+    <div className="navigation">
+      <div className="navbar">
         <button
           type="button"
           onClick={() => {
             navigate("/login");
           }}
         >
-          Login In
+          Login
         </button>
-        <div>/</div>
         <button
           type="button"
           onClick={() => {
@@ -28,6 +23,9 @@ function Dashboard() {
         >
           Register
         </button>
+      </div>
+      <div className="content">
+        <Events />
       </div>
     </div>
   );

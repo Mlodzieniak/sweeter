@@ -9,7 +9,7 @@ function Home() {
         <CreatePost />
         <EventsList />
       </div>
-      <div className="followed-wrapper">Followed users</div>
+      <div className="sidebar-wrapper">Followed users</div>
     </div>
   );
 }

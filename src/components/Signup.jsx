@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TextField, Alert } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
 
 export function validateEmail(email) {
@@ -36,48 +37,33 @@ function Signup() {
   return (
     <div className="signup-page">
       <form action="post" className="register-form" onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          Email:
-          <input type="text" name="email" id="email" ref={emailRef} />
-        </label>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            id="password"
-            ref={passwordRef}
-          />
-        </label>
-        <label htmlFor="passwordConfirmation">
-          Password confirmation:
-          <input
-            type="password"
-            name="passwordConfirmation"
-            id="passwordConfirmation"
-            ref={passwordConfirmationRef}
-          />
-        </label>
-        <button type="submit" disabled={loading}>
+        <h1 className="page-title">Create account</h1>
+        <TextField label="Email*" inputRef={emailRef} />
+        <TextField label="Password*" type="password" inputRef={passwordRef} />
+        <TextField
+          label="Password confirmation*"
+          type="password"
+          inputRef={passwordConfirmationRef}
+        />
+        <button type="submit" disabled={loading} className="register-button">
           Register
         </button>
-
-        {error ? <div className="error">{error}</div> : null}
+        {error && <Alert severity="error">{error}</Alert>}
       </form>
-      <div>
-        Already have an account?{" "}
+      <div className="register-nav">
+        <div>Already have an account?</div>
         <button type="button" onClick={() => navigate("/login")}>
           Login with existing account
         </button>
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Go back to dashboard
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Go back to dashboard
-      </button>
     </div>
   );
 }
