@@ -275,10 +275,7 @@ button:hover {
         max-width: 767px;
         border-bottom: var(--light-shadow);
         background-color: var(--extra-extra-light-gray);
-    }
-
-    .followed-wrapper {
-        display: none;
+        flex: 0;
     }
 
     .home {
@@ -290,6 +287,12 @@ button:hover {
         max-width: 767px;
     }
 
+
+    .followed-wrapper {
+        display: none;
+    }
+
+
 }
 
 @media (min-width:768px) and (max-width: 1199px) {
@@ -298,28 +301,30 @@ button:hover {
     }
 
     .navbar {
+        flex: 0;
+    }
+
+    .home {
         flex: 1;
     }
 
     .content {
-        max-width: 650px;
-        flex: 0;
+        /* max-width: 600px; */
+        flex: 5;
+    }
+
+    .followed-wrapper {
+        border: solid 2px black;
+        flex: 2;
+        max-width: 400px;
+        /* width: 400px; */
     }
 }
 
 @media (min-width: 1200px) {
     .navigation {
         /* justify-content: space-around; */
-    }
-
-    .content {
-        max-width: 800px;
-
-    }
-
-    .button-description {
-        white-space: nowrap;
-        display: inline-block;
+        /* justify-content: center; */
     }
 
     .navbar {
@@ -329,8 +334,33 @@ button:hover {
     }
 
     .home {
+        /* flex: 1; */
+        /* justify-content: center; */
         flex: 0;
+        width: max-content;
     }
+
+    .content {
+        max-width: 600px;
+        width: 600px;
+        flex: 3;
+    }
+
+    .followed-wrapper {
+        border: solid 2px black;
+        flex: 2;
+        max-width: 400px;
+        width: 400px;
+    }
+
+    .button-description {
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+
+
+
 
     .navbar-button {
         justify-content: space-between;
