@@ -62,7 +62,6 @@ export default function CreatePost() {
         text,
         commentsSize: 0,
         imageURL: url || "",
-        // postedAt: Timestamp.fromDate(new Date()),
         postedAt: Date.now(),
       };
       await addDoc(collection(db, "events"), postData);
@@ -91,6 +90,7 @@ export default function CreatePost() {
             onChange={handleTextareaChange}
             value={text}
             placeholder="What is happening?!"
+            spellCheck="false"
           />
         </label>
         {imagePreview && (

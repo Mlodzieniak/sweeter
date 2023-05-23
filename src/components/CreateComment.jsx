@@ -1,4 +1,5 @@
-import { Timestamp, setDoc, getDoc, doc, updateDoc } from "firebase/firestore";
+/* eslint-disable no-param-reassign */
+import { setDoc, getDoc, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { uuidv4 } from "@firebase/util";
 import { Alert, Avatar } from "@mui/material";
@@ -20,6 +21,7 @@ export default function CreateComment({ data: eventData }) {
   const [text, setText] = useState("");
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const { currentUser, userData } = useAuth();
   const { uid } = currentUser;
   const { displayName, avatarURL } = userData;
@@ -38,7 +40,7 @@ export default function CreateComment({ data: eventData }) {
           text,
           eventId: id,
           commentId: uuidv4(),
-          postedAt: Timestamp.fromDate(new Date()),
+          postedAt: Date.now(),
         };
         await setDoc(doc(db, `comments/${postData.commentId}`), postData);
         updateParentEvent(postData.eventId, 1);
@@ -51,34 +53,46 @@ export default function CreateComment({ data: eventData }) {
       setError("You cannot send empty post.");
     }
   };
+  const handleTextareaChange = (event) => {
+    setText(event.target.value);
+    // adjusting textare height
+    event.target.style.height = "auto";
+    event.target.style.height = `${event.target.scrollHeight}px`;
+    // prevents from sending empty or too long tweet
+    setSubmitDisabled(!event.target.value || event.target.value.length > 100);
+    if (text !== 0) {
+      setError(null);
+      setMessage(null);
+    }
+  };
 
   return (
     <div className="create-post-wrapper">
       <Avatar src={avatarURL} />
-      <form action="post" onSubmit={handleSubmit}>
+      <form action="post" onSubmit={handleSubmit} className="create-post-form">
         <div>Replying to {eventData.authorDisplayName} </div>
-        <label htmlFor="postText">
-          <textarea
-            rows={1}
-            type="text"
-            name="postText"
-            id="post-text"
-            className="event-text"
-            placeholder="Tweet your reply!"
-            onChange={(event) => {
-              setText(event.target.value);
-              if (text !== 0) {
-                setError(null);
-                setMessage(null);
-                console.log(eventData);
-              }
-            }}
-            value={text}
-          />
-        </label>
-        <button type="submit" className="tweet-button">
-          Reply
-        </button>
+        <div className="create-post-textarea-button-wrapper">
+          <label htmlFor="postText" className="comment-textarea-label">
+            <textarea
+              rows={1}
+              type="text"
+              name="postText"
+              id="post-text"
+              className="event-text comment-textarea"
+              placeholder="Tweet your reply!"
+              onChange={(event) => handleTextareaChange(event)}
+              value={text}
+              spellCheck="false"
+            />
+          </label>
+          <button
+            type="submit"
+            className="tweet-button"
+            disabled={submitDisabled}
+          >
+            Reply
+          </button>
+        </div>
         {error && <Alert severity="error">{error}</Alert>}
         {message && <Alert>{message}</Alert>}
       </form>
