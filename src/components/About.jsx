@@ -1,8 +1,11 @@
 import React from "react";
+import GitHubIcon from "@mui/icons-material/GitHub";
+// import LoadingPage from "./LoadingPage";
 
 export default function About() {
   return (
     <div>
+      {/* <LoadingPage /> */}
       <h1>Shortly about this project</h1>
       <p>
         Welcome to our Twitter clone! I have recreated the core functionality
@@ -19,8 +22,13 @@ export default function About() {
         Happy tweeting!
       </p>
       <div className="about-buttons">
-        <button type="button">Go back</button>
-        <button type="button">Visit github</button>
+        <button type="button" className="navbar-button">
+          Go back
+        </button>
+        <button type="button" className="navbar-button">
+          <span>Visit github</span>
+          <GitHubIcon />
+        </button>
       </div>
     </div>
   );
