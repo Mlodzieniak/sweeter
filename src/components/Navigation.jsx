@@ -1,10 +1,10 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditIcon from "@mui/icons-material/Edit";
 import GroupsIcon from "@mui/icons-material/Groups";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import { useAuth } from "../contexts/AuthContext";
 import { ReactComponent as DuckLogo } from "../assets/duck.svg";
 
@@ -23,21 +23,11 @@ export default function Navigation() {
           type="button"
           className="navbar-button"
           onClick={() => {
-            navigate("/about");
+            navigate("/home");
           }}
         >
           <DuckLogo className="logo-icon" />
           <span className="button-description">Sweeter</span>
-        </button>
-        <button
-          type="button"
-          className="navbar-button"
-          onClick={() => {
-            navigate("/home");
-          }}
-        >
-          <HomeIcon sx={{ width: 36, height: 36 }} />
-          <span className="button-description">Home</span>
         </button>
 
         <button
@@ -70,6 +60,16 @@ export default function Navigation() {
         >
           <EditIcon sx={{ width: 36, height: 36 }} />
           <span className="button-description">Edit profile</span>
+        </button>
+        <button
+          type="button"
+          className="navbar-button"
+          onClick={() => {
+            navigate("/about");
+          }}
+        >
+          <ImportContactsIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">About</span>
         </button>
         <button type="button" className="navbar-button" onClick={handleLogout}>
           <LogoutIcon sx={{ width: 36, height: 36 }} />

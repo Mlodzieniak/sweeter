@@ -42,7 +42,7 @@ export default function FollowsList() {
           <h3>Following</h3>
           {loadedFollows.map((follow) => (
             <li key={follow.id} className="event-author-wrapper following-name">
-              <Avatar src={follow.AvatarURL} />
+              <Avatar src={follow.avatarURL} />
               <button
                 type="button"
                 className="author-name following-name"

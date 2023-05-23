@@ -1,5 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import LoginIcon from "@mui/icons-material/Login";
+import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import Events from "./EventsList";
 import Sidebar from "./Sidebar";
 
@@ -10,21 +13,36 @@ function Dashboard() {
       <div className="navbar">
         <button
           type="button"
+          className="navbar-button"
           onClick={() => {
             navigate("/login");
           }}
         >
-          Login
+          <LoginIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">Login</span>
         </button>
         <button
           type="button"
+          className="navbar-button"
           onClick={() => {
             navigate("/signup");
           }}
         >
-          Register
+          <PlaylistAddCheckIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">Register</span>
+        </button>
+        <button
+          type="button"
+          className="navbar-button"
+          onClick={() => {
+            navigate("/about");
+          }}
+        >
+          <ImportContactsIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">About</span>
         </button>
       </div>
+
       <div className="content">
         <Events />
       </div>
