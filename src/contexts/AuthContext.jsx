@@ -38,6 +38,7 @@ export function AuthProvider({ children }) {
       joinedAt: Date.now(),
       avatarURL: "",
       events: [],
+      about: "",
     };
     await setDoc(doc(db, `users/${result.user.uid}`), defaultUserData, {
       merge: true,

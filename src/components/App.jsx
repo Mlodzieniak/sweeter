@@ -14,14 +14,13 @@ import Home from "./Home";
 import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
 import ChangeEmail from "./ChangeEmail";
-import ChangeDisplayName from "./ChangeDisplayName";
 import User, { loader as userLoader } from "./User";
 import EventFull, { loader as eventLoader } from "./EventFull";
-import UploadAvatar from "./UploadAvatar";
 import ErrorPage from "./ErrorPage";
 import Navigation from "./Navigation";
 import UserEventsList from "./UserEventsList";
 import About from "./About";
+import UpdateUserInfo from "./UpdateUserInfo";
 
 function App() {
   const router = createBrowserRouter(
@@ -87,11 +86,7 @@ function App() {
                 element={<ChangePassword />}
               />
               <Route path="/edit-profile/email" element={<ChangeEmail />} />
-              <Route
-                path="/edit-profile/name"
-                element={<ChangeDisplayName />}
-              />
-              <Route path="/edit-profile/avatar" element={<UploadAvatar />} />{" "}
+              <Route path="/edit-profile/info" element={<UpdateUserInfo />} />
             </Route>
           </Route>
         </Route>

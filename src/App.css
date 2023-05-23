@@ -312,6 +312,13 @@ body {
     height: 100vh;
 }
 
+.edit-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .register-form {
     display: flex;
     flex-direction: column;
@@ -403,6 +410,12 @@ button:hover {
 
 .delete-button {
     color: red;
+}
+
+.edit-nav-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
 }
 
 @media (max-width: 767px) {

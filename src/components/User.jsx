@@ -24,7 +24,7 @@ const formatDate = (timestamp) => {
 };
 export default function User() {
   const { user } = useLoaderData();
-  const { displayName, avatarURL, joinedAt, events } = user;
+  const { displayName, avatarURL, joinedAt, events, about } = user;
   const joinedAtDate = formatDate(joinedAt);
 
   return (
@@ -52,12 +52,7 @@ export default function User() {
           <div className="detailed-data-wrapper">
             <div className="about">
               <div className="label">About</div>
-              <div className="about-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-                deleniti iusto soluta labore similique rem adipisci commodi eius
-                quasi, obcaecati optio non voluptatum pariatur, suscipit nemo
-                minima ad id animi!
-              </div>
+              <div className="about-text">{about}</div>
             </div>
             <div className="data">
               <div className="label">Joined at</div>

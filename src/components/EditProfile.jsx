@@ -6,44 +6,39 @@ export default function EditProfile() {
   return (
     <div className="navigation">
       <div className="home">
-        <div className="navbar">
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/edit-profile/password");
-            }}
-          >
-            Change password
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/edit-profile/email");
-            }}
-          >
-            Change email
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/edit-profile/name");
-            }}
-          >
-            Change name
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/edit-profile/avatar");
-            }}
-          >
-            Upload avatar
-          </button>
-        </div>
-        <div className="outlet">
-          <Outlet />
+        <div className="content">
+          <div className="edit-nav-buttons">
+            <button
+              type="button"
+              onClick={() => {
+                navigate("/edit-profile/password");
+              }}
+            >
+              Change password
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                navigate("/edit-profile/email");
+              }}
+            >
+              Change email
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                navigate("/edit-profile/info");
+              }}
+            >
+              Update user info
+            </button>
+          </div>
+          <div className="outlet">
+            <Outlet />
+          </div>
         </div>
       </div>
+      <div className="sidebar-wrapper">LIST</div>
     </div>
   );
 }

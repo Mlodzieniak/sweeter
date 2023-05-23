@@ -33,7 +33,7 @@ export default function EditProfile() {
     return setLoading(false);
   };
   return (
-    <div className="signup-page">
+    <div className="edit-window">
       <form action="post" className="register-form" onSubmit={handleSubmit}>
         <TextField
           label="New password*"
