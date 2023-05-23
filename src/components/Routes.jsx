@@ -15,6 +15,7 @@ export function PrivateRoute({ children }) {
         (userDoc) => {
           if (userDoc.exists()) {
             credentials.userData = userDoc.data();
+            console.log("data updated");
           }
           setLoading(false);
         }

@@ -47,7 +47,7 @@ export default function NewUsersList() {
             <h3>New users</h3>
             {users.map((follow) => (
               <li
-                key={follow.id}
+                key={follow.uid}
                 className="event-author-wrapper following-name"
               >
                 <Avatar src={follow.AvatarURL} />

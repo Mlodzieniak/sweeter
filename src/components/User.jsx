@@ -63,23 +63,20 @@ export default function User() {
 
   const unfollowUser = async () => {
     try {
-      // delete viewed user from current user follows
+      // delete viewed ux`ser from current user follows
       const currUserRef = await getDoc(doc(db, `users/${currentUser.uid}`));
-      console.log(currUserRef.data());
       const currUserFreshFollows = currUserRef.data().follows;
       const index1 = currUserFreshFollows.indexOf(viewedUid);
       if (index1 !== -1) {
         currUserFreshFollows.splice(index1, 1);
       }
       await updateDoc(doc(db, `users/${currentUser.uid}`), {
-        follows: [...currUserFollows],
+        follows: [...currUserFreshFollows],
       });
       setFollowed(false);
 
       // delete current users from viewed user followers
-      console.log(viewedUid);
-      const viewedUserRef = await getDoc(doc(db, `users/${viewedUid}}`));
-      console.log(viewedUserRef.data());
+      const viewedUserRef = await getDoc(doc(db, "users", viewedUid));
       const viewedUserFreshFollowers = viewedUserRef.data().followers;
       const index2 = viewedUserFreshFollowers.indexOf(currentUser.uid);
       if (index2 !== -1) {
@@ -93,11 +90,7 @@ export default function User() {
     }
   };
   useEffect(() => {
-    if (currUserFollows.includes(viewedUid)) {
-      setFollowed(true);
-    } else {
-      setFollowed(false);
-    }
+    setFollowed(currUserFollows.includes(viewedUid));
   }, []);
 
   return (
