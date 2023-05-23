@@ -39,6 +39,8 @@ export function AuthProvider({ children }) {
       avatarURL: "",
       events: [],
       about: "",
+      followers: [],
+      follows: [],
     };
     await setDoc(doc(db, `users/${result.user.uid}`), defaultUserData, {
       merge: true,
