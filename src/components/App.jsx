@@ -21,6 +21,7 @@ import Navigation from "./Navigation";
 import UserEventsList from "./UserEventsList";
 import About from "./About";
 import UpdateUserInfo from "./UpdateUserInfo";
+// import { fetchNewestUsers } from "./NewUsersList";
 
 function App() {
   const router = createBrowserRouter(
@@ -29,6 +30,7 @@ function App() {
         <Route
           path="/"
           errorElement={<ErrorPage />}
+          // loader={fetchNewestUsers}
           element={
             <PublicRoute>
               <Dashboard />
@@ -53,6 +55,7 @@ function App() {
           }
         />
         <Route
+          // loader={fetchNewestUsers}
           element={
             <PrivateRoute>
               <Navigation />

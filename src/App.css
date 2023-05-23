@@ -347,6 +347,20 @@ body {
     color: var(--extra-extra-light-gray)
 }
 
+.following-list {
+    padding: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* border-bottom: solid 0.5px var(--light-gray); */
+}
+
+.following-name {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+
 #post-text {
     box-sizing: border-box;
 }
@@ -506,7 +520,6 @@ button:hover {
     }
 
     .sidebar-wrapper {
-        border: solid 2px black;
         flex: 2;
         max-width: 400px;
         width: 400px;

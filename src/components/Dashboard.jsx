@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Events from "./EventsList";
+import Sidebar from "./Sidebar";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ function Dashboard() {
       <div className="content">
         <Events />
       </div>
+      <Sidebar />
     </div>
   );
 }

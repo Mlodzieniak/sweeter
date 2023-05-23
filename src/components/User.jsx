@@ -4,6 +4,7 @@ import { useLoaderData, Outlet } from "react-router-dom";
 import AccountBoxSharpIcon from "@mui/icons-material/AccountBoxSharp";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
+import Sidebar from "./Sidebar";
 
 export async function loader({ params }) {
   const userSnapshot = await getDoc(doc(db, `users/${params.userId}`));
@@ -158,7 +159,11 @@ export default function User() {
         </div>
         <Outlet />
       </div>
-      <div className="sidebar-wrapper">LIST</div>
+      {/* <div className="sidebar-wrapper">
+        <FollowsList />
+        
+      </div> */}
+      <Sidebar />
     </div>
   );
 }

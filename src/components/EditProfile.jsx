@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 export default function EditProfile() {
   const navigate = useNavigate();
@@ -37,8 +38,8 @@ export default function EditProfile() {
             <Outlet />
           </div>
         </div>
+        <Sidebar />
       </div>
-      <div className="sidebar-wrapper">LIST</div>
     </div>
   );
 }
