@@ -1,6 +1,8 @@
 import { getDoc, doc } from "firebase/firestore";
 import React from "react";
 import { useLoaderData, Outlet } from "react-router-dom";
+// import { Avatar } from "@mui/material";
+import AccountBoxSharpIcon from "@mui/icons-material/AccountBoxSharp";
 import { db } from "../firebase";
 
 export async function loader({ params }) {
@@ -30,9 +32,18 @@ export default function User() {
       <div className="content">
         <div className="user-profile">
           <div className="basic-data-wrapper">
-            {avatarURL && (
+            {avatarURL ? (
               <div className="avatar-wrapper">
                 <img src={avatarURL} alt="user avatar" className="avatar" />
+              </div>
+            ) : (
+              <div className="avatar-wrapper">
+                <div className="avatar">
+                  <AccountBoxSharpIcon
+                    // className="avatar-placeholder avatar"
+                    sx={{ fontSize: "200px", color: "#AAB8C2" }}
+                  />
+                </div>
               </div>
             )}
             <h3 className="user-name">{displayName}</h3>
