@@ -2,12 +2,14 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Alert } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
+import { isNameTaken } from "./ChangeDisplayName";
 
 export function validateEmail(email) {
   const pattern = /[^\s@]+@[^\s@]+\.[^\s@]+/gi;
   return pattern.test(email);
 }
 function Signup() {
+  const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmationRef = useRef();
@@ -18,11 +20,21 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const nameCheckResult = await isNameTaken(usernameRef.current.value);
+    if (usernameRef.current.value.length < 4) {
+      return setError("Username must be atleast 4 characters long");
+    }
+    if (usernameRef.current.value.length > 15) {
+      return setError("Username must be maximum 15 characters long");
+    }
     if (!validateEmail(emailRef.current.value)) {
       return setError("Email is not valid");
     }
     if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
-      return setError("Passwords do not match.");
+      return setError("Passwords do not match");
+    }
+    if (nameCheckResult) {
+      return setError("This username is already taken");
     }
     setLoading(true);
 
@@ -38,6 +50,7 @@ function Signup() {
     <div className="signup-page">
       <form action="post" className="register-form" onSubmit={handleSubmit}>
         <h1 className="page-title">Create account</h1>
+        <TextField label="Username*" inputRef={usernameRef} />
         <TextField label="Email*" inputRef={emailRef} />
         <TextField label="Password*" type="password" inputRef={passwordRef} />
         <TextField

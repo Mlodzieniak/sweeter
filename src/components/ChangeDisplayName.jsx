@@ -11,6 +11,13 @@ import { TextField, Alert } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 
+export const isNameTaken = async (newName) => {
+  const usersRef = collection(db, "users");
+  const usersQuery = query(usersRef, where("displayName", "==", newName));
+  const usersSnapshot = await getDocs(usersQuery);
+  return !!usersSnapshot.size;
+};
+
 export default function ChangeDisplayName() {
   const nameRef = useRef();
   const [error, setError] = useState();
@@ -43,18 +50,13 @@ export default function ChangeDisplayName() {
       updateDoc(doc(db, `comments/${event.id}`), commentData);
     });
   };
-  const isNameTaken = async (newName) => {
-    const usersRef = collection(db, "users");
-    const usersQuery = query(usersRef, where("displayName", "==", newName));
-    const usersSnapshot = await getDocs(usersQuery);
-    return !!usersSnapshot.size;
-  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage(null);
     setError();
 
-    if (nameRef.current.value.length < 3) {
+    if (nameRef.current.value.length < 4) {
       return setError("Name must be at least 4 characters long.");
     }
     if (nameRef.current.value.length > 15) {
