@@ -50,11 +50,11 @@ export default function NewUsersList() {
                 key={follow.uid}
                 className="event-author-wrapper following-name"
               >
-                <Avatar src={follow.AvatarURL} />
+                <Avatar src={follow.avatarURL} />
                 <button
                   type="button"
                   className="author-name following-name"
-                  onClick={() => handleRedirect(`/user/${follow.id}`)}
+                  onClick={() => handleRedirect(`/user/${follow.uid}`)}
                 >
                   <div>{follow.displayName}</div>
                 </button>

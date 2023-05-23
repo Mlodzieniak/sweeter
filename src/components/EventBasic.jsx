@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
@@ -51,7 +53,9 @@ export default function EventBasic({ data, commentsLength }) {
   const location = useLocation();
   const formattedTimestamp = formateTimestamp(postedAt);
   formateTimestamp(postedAt);
-  const deletePost = async () => {
+
+  const deletePost = async (e) => {
+    e.stopPropagation();
     await deleteDoc(doc(db, `events/${postId}`));
     const userRef = await getDoc(doc(db, `users/${currentUser.uid}`));
     const userEvents = userRef.data().events;
@@ -64,14 +68,16 @@ export default function EventBasic({ data, commentsLength }) {
       events: [...userEvents],
     });
   };
-  const handleRedirect = (path) => {
+  const handleRedirect = (path, e) => {
+    e.stopPropagation();
     if (currentUser) {
       navigate(path);
     } else {
       navigate(`/login`);
     }
   };
-  const showMenu = () => {
+  const showMenu = (e) => {
+    e.stopPropagation();
     if (menuClasses === "hide") {
       setMenuClasses("event-dropdown-menu");
     } else {
@@ -95,14 +101,17 @@ export default function EventBasic({ data, commentsLength }) {
   }, [data]);
 
   return (
-    <div className="event">
+    <div
+      className="event event-button-wrapper"
+      onClick={(e) => handleRedirect(`/user/${authorId}/${postId}`, e)}
+    >
       <div className="event-top">
         <div className="event-author-wrapper">
           <Avatar src={authorAvatarURL} />
           <button
             className="author-name"
             type="button"
-            onClick={() => handleRedirect(`/user/${authorId}`)}
+            onClick={(e) => handleRedirect(`/user/${authorId}`, e)}
           >
             <div>{authorDisplayName}</div>
           </button>
@@ -122,20 +131,19 @@ export default function EventBasic({ data, commentsLength }) {
           <button
             type="button"
             className=""
-            onClick={() => handleRedirect(`/user/${authorId}/${postId}`)}
+            onClick={(e) => handleRedirect(`/user/${authorId}/${postId}`, e)}
           >
-            Go to event
+            Comments
           </button>
         )}
         <button type="button" onClick={showMenu}>
           Close
         </button>
       </div>
-
       <div className="event-text">{text}</div>
-      {/* depending on location of rendering different variable is chosen, 
-      commentsLength is provided from fetched event data,
-      commentsSize is array.length of comments array */}
+      {/* depending on location of rendering different variable is chosen,
+        commentsLength is provided from fetched event data,
+        commentsSize is array.length of comments array */}
       {imageURL && <img src={imageURL} alt="#" className="event-image" />}
       <div className="event-attribute">
         <ModeCommentOutlinedIcon />

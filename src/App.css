@@ -146,6 +146,17 @@ body {
     padding: 0;
 }
 
+.event-button-wrapper {
+    transition: box-shadow 0.15s;
+}
+
+.event-button-wrapper:hover {
+    /* background-color: var(--extra-light-gray); */
+    box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+
 .event-buttons {
     display: flex;
     align-items: center;
