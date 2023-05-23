@@ -1,4 +1,4 @@
-import { uuidv4 } from "@firebase/util";
+// import { uuidv4 } from "@firebase/util";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -29,13 +29,15 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     await auth.signOut();
   };
-  const signup = async (email, password) => {
+  const signup = async (email, password, username) => {
     const result = await createUserWithEmailAndPassword(auth, email, password);
     const defaultUserData = {
       uid: result.user.uid,
-      displayName: result.user.displayName || `user${uuidv4().slice(0, 7)}`,
+      displayName: username,
       email: result.user.email,
+      joinedAt: Date.now(),
       avatarURL: "",
+      events: [],
     };
     await setDoc(doc(db, `users/${result.user.uid}`), defaultUserData, {
       merge: true,

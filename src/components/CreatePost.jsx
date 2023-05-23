@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { uuidv4 } from "@firebase/util";
@@ -64,7 +64,12 @@ export default function CreatePost() {
         imageURL: url || "",
         postedAt: Date.now(),
       };
-      await addDoc(collection(db, "events"), postData);
+      const eventRef = await addDoc(collection(db, "events"), postData);
+      const userRef = await getDoc(doc(db, `users/${uid}`));
+      const userEvents = userRef.data().events;
+      await updateDoc(doc(db, `users/${uid}`), {
+        events: [...userEvents, eventRef.id],
+      });
       resetForm();
     } catch (newError) {
       setError(newError);

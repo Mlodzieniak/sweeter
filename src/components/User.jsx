@@ -8,9 +8,23 @@ export async function loader({ params }) {
   return { user: userSnapshot.data() };
 }
 
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  // Pad single digits with leading zeros
+  const formattedDay = String(day).padStart(2, "0");
+  const formattedMonth = String(month).padStart(2, "0");
+
+  return `${formattedDay}/${formattedMonth}/${year}`;
+};
 export default function User() {
   const { user } = useLoaderData();
-  const { displayName, avatarURL, joinedAt } = user;
+  const { displayName, avatarURL, joinedAt, events } = user;
+  const joinedAtDate = formatDate(joinedAt);
+
   return (
     <div className="home">
       <div className="content">
@@ -36,11 +50,11 @@ export default function User() {
             </div>
             <div className="data">
               <div className="label">Joined at</div>
-              <div className="value">01.01.1999 {joinedAt}</div>
+              <div className="value">{joinedAtDate}</div>
             </div>
             <div className="data">
               <div className="label">Tweets</div>
-              <div className="value">0</div>
+              <div className="value">{events.length}</div>
             </div>
             <div className="data">
               <div className="label">Followers</div>

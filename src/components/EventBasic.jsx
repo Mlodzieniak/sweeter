@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useLocation, useNavigate } from "react-router-dom";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
@@ -53,6 +53,16 @@ export default function EventBasic({ data, commentsLength }) {
   formateTimestamp(postedAt);
   const deletePost = async () => {
     await deleteDoc(doc(db, `events/${postId}`));
+    const userRef = await getDoc(doc(db, `users/${currentUser.uid}`));
+    const userEvents = userRef.data().events;
+    const index = userEvents.indexOf(postId);
+    if (index !== -1) {
+      userEvents.splice(index, 1);
+    }
+
+    await updateDoc(doc(db, `users/${currentUser.uid}`), {
+      events: [...userEvents],
+    });
   };
   const handleRedirect = (path) => {
     if (currentUser) {

@@ -39,10 +39,17 @@ function Signup() {
     setLoading(true);
 
     try {
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        usernameRef.current.value
+      );
       navigate("/home");
     } catch (registrationError) {
-      console.log(`failed to create account${registrationError}`);
+      console.log(registrationError.code);
+      if (registrationError.code === "auth/email-already-in-use") {
+        setError("Email is already taken");
+      }
     }
     return setLoading(false);
   };
