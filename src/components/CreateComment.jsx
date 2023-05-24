@@ -31,6 +31,8 @@ export default function CreateComment({ data: eventData }) {
     const { id } = eventData;
     setError(null);
     setMessage(null);
+    const isEmptyOrSpaces = /^\s*$/.test(text);
+    if (isEmptyOrSpaces) return setError("You cannot post empty message.");
     if (text.length !== 0) {
       try {
         const postData = {

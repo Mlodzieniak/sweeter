@@ -93,7 +93,9 @@ export default function UpdateUserInfo() {
     e.preventDefault();
     setMessage(null);
     setError();
-
+    if (nameRef.current.value.includes(" ")) {
+      return setError("Empty spaces are not allowed in name.");
+    }
     if (nameRef.current.value.length < 4) {
       return setError("Name must be at least 4 characters long.");
     }

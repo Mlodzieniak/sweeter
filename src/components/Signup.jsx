@@ -21,6 +21,9 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const nameCheckResult = await isNameTaken(usernameRef.current.value);
+    if (usernameRef.current.value.includes(" ")) {
+      return setError("Empty spaces are not allowed in name.");
+    }
     if (usernameRef.current.value.length < 4) {
       return setError("Username must be atleast 4 characters long");
     }

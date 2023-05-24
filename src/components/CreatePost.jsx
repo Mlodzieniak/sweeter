@@ -49,6 +49,8 @@ export default function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    const isEmptyOrSpaces = /^\s*$/.test(text);
+    if (isEmptyOrSpaces) return setError("You cannot post empty message.");
     let url = "";
     try {
       if (file) {
