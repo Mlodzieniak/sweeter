@@ -366,6 +366,12 @@ body {
     gap: 1rem;
 }
 
+.follows-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .following-name {
     font-weight: 700;
     font-size: 1.3rem;

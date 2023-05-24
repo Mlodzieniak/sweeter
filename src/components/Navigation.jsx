@@ -32,17 +32,6 @@ export default function Navigation() {
 
         <button
           type="button"
-          className="navbar-button followed-button"
-          onClick={() => {
-            navigate("/followed");
-          }}
-        >
-          <GroupsIcon sx={{ width: 36, height: 36 }} />
-          <span className="button-description">Followed</span>
-        </button>
-
-        <button
-          type="button"
           className="navbar-button"
           onClick={() => {
             navigate(`/user/${currentUser.uid}`);
@@ -50,6 +39,16 @@ export default function Navigation() {
         >
           <Avatar src={avatarURL} sx={{ width: 36, height: 36 }} />
           <span className="button-description">{displayName}</span>
+        </button>
+        <button
+          type="button"
+          className="navbar-button followed-button"
+          onClick={() => {
+            navigate("/follows");
+          }}
+        >
+          <GroupsIcon sx={{ width: 36, height: 36 }} />
+          <span className="button-description">Followed</span>
         </button>
         <button
           type="button"

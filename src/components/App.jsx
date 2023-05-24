@@ -21,6 +21,7 @@ import Navigation from "./Navigation";
 import UserEventsList from "./UserEventsList";
 import About from "./About";
 import UpdateUserInfo from "./UpdateUserInfo";
+import FollowsMobile from "./FollowsMobile";
 
 function App() {
   const router = createBrowserRouter(
@@ -89,6 +90,7 @@ function App() {
               <Route path="/edit-profile/info" element={<UpdateUserInfo />} />
             </Route>
           </Route>
+          <Route path="/follows" element={<FollowsMobile />} />
         </Route>
       </>
     )
