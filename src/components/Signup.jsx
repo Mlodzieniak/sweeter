@@ -2,12 +2,13 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Alert } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
-import { isNameTaken } from "./ChangeDisplayName";
+import { isNameTaken } from "./UpdateUserInfo";
 
 export function validateEmail(email) {
   const pattern = /[^\s@]+@[^\s@]+\.[^\s@]+/gi;
   return pattern.test(email);
 }
+
 function Signup() {
   const usernameRef = useRef();
   const emailRef = useRef();
